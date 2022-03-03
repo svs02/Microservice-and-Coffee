@@ -1,0 +1,56 @@
+---
+openapi: 3.0.0
+info:
+  title: Coffee name API
+  description: This is a Coffee info API that reading events from user inupt and return like coffee's id, name.
+  contact:
+    email: tlee277@mybcit.ca
+  version: 1.0.0
+
+
+paths:
+  /stats:
+    get:
+      summary: Gets the event stats
+      operationId: app.get_stats
+      description: Get Locaion and Flavour processed statistics
+      responses:
+        '200':
+          description: Successfully returned a list
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/stats'
+        '400':
+          description: Invaild request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    stats:
+      required:
+      - num_location_phone_readings
+      - max_flavour_points_reading
+      - num_flavour_review_count_readings
+      - num_location_Countrycode_number_readings
+      properties:
+        num_location_phone_readings:
+          type: integer
+          example: 40000
+        max_flavour_points_reading:
+          type: integer
+          example: 40000
+        num_flavour_review_count_readings:
+          type: integer
+          example: 40000
+        num_location_Countrycode_number_readings:
+          type: integer
+          example: 40000
+      type: object

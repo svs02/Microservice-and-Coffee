@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  description: This API provides audit info
+  version: "1.0.0"
+  title: Audit API
+  contact:
+    email: tlee277@mybcit.ca
+
+paths:
+  /coffee/location:
+    get:
+      summary: get new coffee name by location from history
+      description: show a coffee beans by location to the user
+      operationId: app.get_coffeeLocation_readings
+      parameters:
+        - name: index
+          in: query
+          description: Gets the Location at the index in the event store
+          schema:
+            type: integer
+            example: 100
+      responses:
+        '200':
+          description: Successfully returned a list of coffee location events
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/coffeeLocation'
+        '400':
+          description: Invaild request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /coffee/flavour:
+    get:
+      tags:
+      - flavour
+      summary: get new coffee name by flavour from history
+      description: show a coffee beans by flavour to the user
+      operationId: app.get_coffeeFlavour_readings
+      parameters:
+        - name: index
+          in: query
+          description: Gets the Location at the index in the event store
+          schema:
+            type: integer
+            example: 100
+      responses:
+        '200':
+          description: Successfully returned a list of coffee flavour events
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/coffeeFlavour'
+        '400':
+          description: Invaild request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    coffeeLocation:
+      required:
+      - location_id
+      - location_name
+      - location_phone_number
+      - location_Countrycode_number
+      - timestamp
+      - trace_id
+      - date_created
+      type: object
+      properties:
+        location_id:
+          type: string
+          format: uuid
+        location_name:
+          type: string
+          example: Columbia
+        location_phone_number:
+          type: number
+          example: 6048329480
+        location_Countrycode_number:
+          type: number
+          example: 1
+        timestamp:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
+        trace_id:
+          type: string
+          example: uuid4
+        date_created:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
+    coffeeFlavour:
+      required:
+      - coffee_id
+      - coffee_name
+      - Flavour_points
+      - Flavour_review_count
+      - timestamp
+      - trace_id
+      - date_created
+      type: object
+      properties:
+        coffee_id:
+          type: string
+          format: uuid
+        coffee_name:
+          type: string
+          example: Arabica
+        Flavour_points:
+          type: number
+          example: 10
+        Flavour_review_count:
+          type: number
+          example: 150
+        timestamp:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
+        trace_id:
+          type: string
+          example: uuid4
+        date_created:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z

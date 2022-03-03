@@ -1,0 +1,104 @@
+openapi: 3.0.0
+info:
+  title: Coffee name API
+  description: This is a Coffee info API that reading events from user inupt and return like coffee's id, name.
+  contact:
+    email: tlee277@mybcit.ca
+  version: 1.0.0
+
+tags:
+- name: location
+  description: Coffee producing area.
+- name: flavour
+  description: Classification of coffee flavors.
+paths:
+  /coffee/location:
+    post:
+      tags:
+      - location
+      summary: request coffee name by location
+      description: show a coffee beans by location to the user
+      operationId: app.report_coffeeLocation_reading
+      requestBody:
+        description: Reading item to show
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/coffeeLocation'
+      responses:
+        "201":
+          description: item found
+        "400":
+          description: 'invalid input, object invalid'
+  /coffee/flavour:
+    post:
+      tags:
+      - flavour
+      summary: request coffee name by flavour
+      description: show a coffee beans by flavour to the user
+      operationId: app.report_coffeeFlavour_reading
+      requestBody:
+        description: Reading item to show
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/coffeeFlavour'
+      responses:
+        "201":
+          description: item found
+        "400":
+          description: 'invalid input, object invalid'
+components:
+  schemas:
+    coffeeLocation:
+      required:
+      - location_id
+      - location_name
+      - location_phone_number
+      - location_Countrycode_number
+      - timestamp
+      type: object
+      properties:
+        location_id:
+          type: string
+          format: uuid
+        location_name:
+          type: string
+          example: Columbia
+        location_phone_number:
+          type: number
+          example: 6048329480
+        location_Countrycode_number:
+          type: number
+          example: 1
+        timestamp:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+
+    coffeeFlavour:
+      required:
+      - coffee_id
+      - coffee_name
+      - Flavour_points
+      - Flavour_review_count
+      - timestamp
+      type: object
+      properties:
+        coffee_id:
+          type: string
+          format: uuid
+        coffee_name:
+          type: string
+          example: Arabica
+        Flavour_points:
+          type: number
+          example: 10
+        Flavour_review_count:
+          type: number
+          example: 150
+        timestamp:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+
