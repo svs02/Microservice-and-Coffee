@@ -177,20 +177,4 @@ app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 if __name__ == "__main__":
     # run our standalone event server
     init_scheduler()
-    app.run(port=9100, use_reloader=False)
-
-
-#     """ Periodically update stats"""
-#     logger.info("StartPeriodic Processing start...")
-#     logger.info("get_stats request has started")
-#     session = DB_SESSION()
-#
-#     stats = Stats(stats['num_location_phone_readings'],
-#                   stats['max_flavour_points_reading'],
-#                   stats['num_flavour_review_count_readings'],
-#                   stats['num_location_Countrycode_number_readings'],
-#                   datetime.datetime.strptime(stats['last_updated'],"%Y-%m-%dT%H:%M:%S"))
-#     session.add(stats)
-#
-#     session.commit()
-#     session.close()
+    app.run(port=8100, use_reloader=False)
