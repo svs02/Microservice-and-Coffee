@@ -65,7 +65,7 @@ services:
   audit_log:
     build: ../audit_log
     ports:
-      - "8010:8010"
+      - "9010:9010"
     depends_on:
       - kafka
 volumes:
