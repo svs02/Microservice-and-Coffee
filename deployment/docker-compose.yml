@@ -40,19 +40,6 @@ services:
       - '3306'
     volumes:
       - my-db:/var/lib/mysql
-  audit_log:
-    build: ../audit_log
-    ports:
-      - "8010:8010"
-    depends_on:
-      - kafka
-  processing:
-    build: ../processing
-    depends_on:
-      - storage
-    network_mode: host
-    volumes:
-      - my-db:/var/lib/sqlite
   receiver:
     build: ../receiver
     depends_on:
@@ -67,6 +54,19 @@ services:
       - 8090
     depends_on:
       - db
+      - kafka
+  processing:
+    build: ../processing
+    depends_on:
+      - storage
+    network_mode: host
+    volumes:
+      - my-db:/var/lib/sqlite
+  audit_log:
+    build: ../audit_log
+    ports:
+      - "8010:8010"
+    depends_on:
       - kafka
 volumes:
   my-db:
