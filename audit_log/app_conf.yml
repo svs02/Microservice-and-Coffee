@@ -4,8 +4,16 @@ events:
   port: 9092
   topic: events
 datastore:
+<<<<<<< HEAD
   user: root
   password: password
   hostname: localhost
   port: 3306
   db: events
+=======
+  user: user
+  password: password
+  hostname: kafka3855.eastus.cloudapp.azure.com
+  port: 3306
+  db: events
+>>>>>>> 7efbb810d41c0595bcd42f297fbba8f156a2a7fb
