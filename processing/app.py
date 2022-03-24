@@ -83,10 +83,16 @@ def populate_stats():
         max_phone_readings = new_results['num_location_phone_readings']
         max_Countrycode_number_readings = new_results['num_location_Countrycode_number_readings']
         for i in location_response_data:
-            max_phone_readings = max(
-                max_phone_readings, i['num_location_phone_readings'])
-            max_Countrycode_number_readings = max(
-                max_Countrycode_number_readings, i['num_location_Countrycode_number_readings'])
+            try:
+                max_phone_readings = max(
+                    max_phone_readings, i['num_location_phone_readings'])
+            except KeyError:
+                print(f"\n\n{i}\n\n")
+            try:
+                max_Countrycode_number_readings = max(
+                    max_Countrycode_number_readings, i['num_location_Countrycode_number_readings'])
+            except KeyError:
+                print(f"\n\n{i}\n\n")
             logger.debug(f"locaion event {i['trace_id']} processed")
 
         max_phone_readings = max_phone_readings + random.choice(li)
@@ -118,10 +124,16 @@ def populate_stats():
         max_flavour_points_reading = new_results['max_flavour_points_reading']
         num_flavour_review_count_readings = new_results['num_flavour_review_count_readings']
         for i in flavour_response_data:
-            max_flavour_points_reading = max(
-                max_flavour_points_reading, i['max_flavour_points_reading'])
-            num_flavour_review_count_readings = max(num_flavour_review_count_readings,
-                                                    i['num_flavour_review_count_readings'])
+            try:
+                max_flavour_points_reading = max(
+                    max_flavour_points_reading, i['max_flavour_points_reading'])
+            except KeyError:
+                print(f"\n\n{i}\n\n")
+            try:
+                num_flavour_review_count_readings = max(num_flavour_review_count_readings,
+                                                        i['num_flavour_review_count_readings'])
+            except KeyError:
+                print(f"\n\n{i}\n\n")
             logger.debug(f"flavour event {i['trace_id']} processed")
 
         max_flavour_points_reading = max_flavour_points_reading + \

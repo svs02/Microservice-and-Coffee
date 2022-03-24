@@ -27,7 +27,7 @@ services:
       - "zookeeper"
 
   db:
-    image: mysql:5.7
+    image: mysql
     restart: always
     environment:
       MYSQL_DATABASE: 'events'
@@ -35,9 +35,9 @@ services:
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
     ports:
-      - '3306:3306'
+      - '9080:9080'
     expose:
-      - '3306'
+      - 3306
     volumes:
       - my-db:/var/lib/mysql
   receiver:
