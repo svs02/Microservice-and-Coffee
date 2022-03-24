@@ -15,6 +15,7 @@ import uuid
 import datetime
 import random
 from pykafka import KafkaClient
+from flask_cors import CORS, cross_origin
 
 DB_ENGINE = create_engine("sqlite:///stats.sqlite")
 Base.metadata.bind = DB_ENGINE
@@ -183,6 +184,8 @@ def init_scheduler():
 
 
 app = connexion.FlaskApp(__name__, specification_dir='./')
+CORS(app.app)
+app.app.config['CORS_HEADERS'] = 'Content-Type'
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 
 

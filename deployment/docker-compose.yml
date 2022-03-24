@@ -57,16 +57,25 @@ services:
       - kafka
   processing:
     build: ../processing
-    depends_on:
-      - storage
-    network_mode: host
     volumes:
       - my-db:/var/lib/sqlite
+    ports:
+      - "8100:8100"
+    depends_on:
+      - storage
   audit_log:
     build: ../audit_log
     ports:
       - "8110:8110"
     depends_on:
       - kafka
+  dashboard:
+    build: ../dashboard-ui
+    image: dashboard
+    ports:
+    - "3000:3000"
+    depends_on:
+    - "processing"
+    - "audit_log"
 volumes:
   my-db:

@@ -5,3 +5,4 @@ mysql-connector-python==8.0.23
 pymysql==1.0.2
 pykafka==2.4.0
 apscheduler==3.9.1
+flask-cors==3.0.10
