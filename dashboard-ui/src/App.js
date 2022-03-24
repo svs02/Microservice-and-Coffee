@@ -8,7 +8,7 @@ import AppStats from './components/AppStats'
 
 function App() {
 
-    const endpoints = ["coffee/Location", "coffee/Flavour"]
+    const endpoints = ["coffee/location", "coffee/flavour"]
 
     const rendered_endpoints = endpoints.map((endpoint) => {
         return <EndpointAudit key={endpoint} endpoint={endpoint}/>
