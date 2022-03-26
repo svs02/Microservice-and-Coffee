@@ -68,6 +68,7 @@ services:
     depends_on:
       - storage
     restart: always
+    network_code: host
   audit_log:
     build: ../audit_log
     ports:
