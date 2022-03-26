@@ -8,5 +8,4 @@ WORKDIR /app
 RUN pip3 install -r requirements.txt
 COPY . /app
 ENTRYPOINT [ "python3" ]
-CMD ["create_tables_mysql.py"]
-CMD [ "app.py" ]
+CMD [ "create_tables_mysql.py", "app.py" ]
