@@ -63,12 +63,10 @@ services:
     build: ../processing
     volumes:
       - my-db:/var/lib/sqlite
-    ports:
-      - "8100:8100"
     depends_on:
       - storage
     restart: always
-    network_code: host
+    network_mode: host
   audit_log:
     build: ../audit_log
     ports:
