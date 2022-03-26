@@ -2,7 +2,7 @@ version: 1
 datastore:
  user: user
  password: password
- hostname: kafka3855.eastus.cloudapp.azure.com
+ hostname: db
  port: 3306
  db: events
 
