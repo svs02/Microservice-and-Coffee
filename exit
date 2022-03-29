@@ -1,0 +1,198 @@
+[33mcommit 0c0e18c331190980e85ddbab7ef5f2997ba30096[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Luke <svs02po@gmail.com>
+Date:   Tue Mar 29 14:34:11 2022 -0700
+
+    change port in docker-compose file
+
+[33mcommit 7f99e22e0a67f2e56517e085bf970b869aa8ed04[m
+Author: Luke <svs02po@gmail.com>
+Date:   Tue Mar 29 09:47:03 2022 -0700
+
+    change z
+
+[33mcommit 4070ee145918eaf0c88489b364d8ffbe947d0a14[m
+Author: Luke <svs02po@gmail.com>
+Date:   Tue Mar 29 01:27:09 2022 -0700
+
+    change storage app.py
+
+[33mcommit c59d2c262e859fae2fde95cf2e7fbcb183ae4727[m
+Author: Luke <svs02po@gmail.com>
+Date:   Tue Mar 29 01:13:13 2022 -0700
+
+    change storage app.py
+
+[33mcommit 176f1e09424e318e4df8985b422d3ca5e3496ffc[m
+Author: Luke <svs02po@gmail.com>
+Date:   Tue Mar 29 01:03:51 2022 -0700
+
+    change storage app.py
+
+[33mcommit fe483327333dce59b96a28a837179b760d45a86b[m
+Author: Luke <svs02po@gmail.com>
+Date:   Tue Mar 29 01:00:51 2022 -0700
+
+    change storage app.py
+
+[33mcommit 3ec3fb5f2e53c260d644e6eee38bf6ee644eb394[m
+Author: Luke <svs02po@gmail.com>
+Date:   Tue Mar 29 01:00:11 2022 -0700
+
+    change storage app.py
+
+[33mcommit 10e2a99bb4d7732cc53e6ef179535bc6ce067d50[m
+Author: Luke <svs02po@gmail.com>
+Date:   Tue Mar 29 00:57:02 2022 -0700
+
+    change storage docker-compose file name
+
+[33mcommit 72d60cd3845624b18258a64177e12d150c8a6e2b[m
+Author: Luke <svs02po@gmail.com>
+Date:   Tue Mar 29 00:53:49 2022 -0700
+
+    change storage app.py name
+
+[33mcommit c88ed82dabf9135b0a20b23ed6cfa1520c70e30b[m
+Author: Luke <svs02po@gmail.com>
+Date:   Tue Mar 29 00:23:11 2022 -0700
+
+    change storage app.py
+
+[33mcommit 45e819c475ecac0408aef90eb1b4a1e97da94351[m
+Author: Luke <svs02po@gmail.com>
+Date:   Tue Mar 29 00:06:14 2022 -0700
+
+    change audit_log conf
+
+[33mcommit 60a0e4f8de883d5d31f4bf95ca99d06070bf0912[m
+Author: Luke <svs02po@gmail.com>
+Date:   Tue Mar 29 00:00:49 2022 -0700
+
+    change storage conf
+
+[33mcommit bc84f5ea1bdc85ce49a16ebbb9c193a72edd01ac[m
+Author: Luke <svs02po@gmail.com>
+Date:   Mon Mar 28 23:30:00 2022 -0700
+
+    change audit_conf values
+
+[33mcommit 9cfc33addfc5e67c802fe48ba585204b994f6cd8[m
+Author: Luke <svs02po@gmail.com>
+Date:   Sat Mar 26 16:14:28 2022 -0700
+
+    change docker storage
+
+[33mcommit 0ce6e68ad155279bff662796b078e7bdf7035133[m
+Author: Luke <svs02po@gmail.com>
+Date:   Sat Mar 26 16:09:43 2022 -0700
+
+    change docker storage
+
+[33mcommit e3523c4574fa205508fa37491b28cac411f8a1ab[m
+Author: Luke <svs02po@gmail.com>
+Date:   Sat Mar 26 16:07:36 2022 -0700
+
+    changne conf docker-compose
+
+[33mcommit b2399e5e57cd04b1a3590e7acb677f0c0c4cea19[m
+Author: Luke <svs02po@gmail.com>
+Date:   Sat Mar 26 16:06:55 2022 -0700
+
+    change processing conf
+
+[33mcommit 487bb9bf5bcb768e13bb6b5d7814f8ab453bba75[m
+Author: Luke <svs02po@gmail.com>
+Date:   Sat Mar 26 16:01:46 2022 -0700
+
+    change localhost in processing service
+
+[33mcommit 8da3ce9a84ccb6311c72368d39ee0ce557d78270[m
+Author: Luke <svs02po@gmail.com>
+Date:   Sat Mar 26 15:24:27 2022 -0700
+
+    change hostname in storage service
+
+[33mcommit 26f3e8a620c6de022f383102dbc5dba1056ce47f[m
+Author: Luke <svs02po@gmail.com>
+Date:   Thu Mar 24 16:30:59 2022 -0700
+
+    change recieve port on dashboard
+
+[33mcommit 3b0ec519088808f92d53bdf3f79143cf29b08232[m
+Author: Luke <svs02po@gmail.com>
+Date:   Thu Mar 24 16:25:21 2022 -0700
+
+    change endpoints on dashboard
+
+[33mcommit 896a01082bfcd2e5dfb97bcc8c3e3b2cb5deba68[m
+Author: Luke <svs02po@gmail.com>
+Date:   Thu Mar 24 16:11:45 2022 -0700
+
+    change audit app.conf
+
+[33mcommit 395abce74df2338493c1aa3cc38a597710d98854[m
+Author: Luke <svs02po@gmail.com>
+Date:   Thu Mar 24 16:03:13 2022 -0700
+
+    change audit requirements
+
+[33mcommit 8ae98ebf90f4353eda3cec8e7c79f597dfeb4973[m
+Author: Luke <svs02po@gmail.com>
+Date:   Thu Mar 24 15:59:32 2022 -0700
+
+    change process requirements
+
+[33mcommit b039ae4442de6fdafe59dea916a82533ab67b145[m
+Merge: b381c9b 7efbb81
+Author: Luke <svs02po@gmail.com>
+Date:   Thu Mar 24 15:48:15 2022 -0700
+
+    change conf after pull
+
+[33mcommit b381c9b58656d7619d2346e5729a28df1218034a[m
+Author: Luke <svs02po@gmail.com>
+Date:   Thu Mar 24 15:46:30 2022 -0700
+
+    made dashboard-ui directory
+
+[33mcommit cd513603fe65d10c24135af18f10113217f2ee6a[m
+Author: Luke <svs02po@gmail.com>
+Date:   Wed Mar 23 21:31:56 2022 -0700
+
+    fix db error and audit error
+
+[33mcommit 7efbb810d41c0595bcd42f297fbba8f156a2a7fb[m
+Author: Ubuntu <azureuser@kafka.azwnd5nr1slepfnxxeoqhistwh.bx.internal.cloudapp.net>
+Date:   Thu Mar 3 22:59:26 2022 +0000
+
+    final
+
+[33mcommit 8ee8b5a0e8d259a64ded1eaa405d1df8aa933413[m
+Author: DESKTOP-NC301C1\svs02 <svs02po@gmail.com>
+Date:   Thu Mar 3 12:18:36 2022 -0800
+
+    5
+
+[33mcommit 1de58984a7854401d326a34625ee73b8e128cf61[m
+Author: DESKTOP-NC301C1\svs02 <svs02po@gmail.com>
+Date:   Thu Mar 3 11:44:23 2022 -0800
+
+    4
+
+[33mcommit 317a98b62b7776c1cd3df0c67e1fd574fccacd05[m
+Author: DESKTOP-NC301C1\svs02 <svs02po@gmail.com>
+Date:   Thu Mar 3 11:37:21 2022 -0800
+
+    3
+
+[33mcommit 7c17d8629ca48d267da42b9b202407ae6cbbc54a[m
+Author: DESKTOP-NC301C1\svs02 <svs02po@gmail.com>
+Date:   Thu Mar 3 11:17:00 2022 -0800
+
+    second
+
+[33mcommit 1866162db6006ba238ad43e761868a1d468de3a5[m
+Author: DESKTOP-NC301C1\svs02 <svs02po@gmail.com>
+Date:   Thu Mar 3 10:11:27 2022 -0800
+
+    Project upload
