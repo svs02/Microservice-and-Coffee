@@ -47,6 +47,7 @@ services:
       - 3306
     volumes:
       - my-db:/var/lib/mysql
+      
   receiver:
     build: ../receiver
     depends_on:
@@ -54,16 +55,16 @@ services:
     ports:
       - "8080:8080"
     restart: always
+
   storage:
     build: ../storage
     ports:
       - "8090:8090"
-    expose:
-      - 8090
     depends_on:
       - db
       - kafka
     restart: always
+
   processing:
     build: ../processing
     environment:
