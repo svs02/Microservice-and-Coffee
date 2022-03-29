@@ -1,7 +1,7 @@
 version: 1
 datastore:
-    filename: /data/data.sqlite
+    filename: stats.sqlite
 scheduler:
     period_sec: 5
 eventstore:
-    url: http://127.0.0.1:8090
+    url: http://localhost:8090
