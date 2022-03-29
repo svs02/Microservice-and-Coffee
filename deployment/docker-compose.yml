@@ -50,11 +50,12 @@ services:
       
   receiver:
     build: ../receiver
+    image: receiver
+    container_name: receiver
+    ports: 
+      - '8080:8080'
     depends_on:
-      - kafka
-    ports:
-      - "8080:8080"
-    restart: always
+      - "kafka"
 
   storage:
     build: ../storage
