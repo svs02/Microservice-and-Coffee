@@ -6,6 +6,7 @@ from base import Base
 from coffeeFlavour import CoffeeFlavour
 from coffeeLocation import CoffeeLocation
 import yaml
+import logging
 import logging.config
 import uuid
 import datetime
