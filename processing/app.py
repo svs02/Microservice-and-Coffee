@@ -67,7 +67,7 @@ def populate_stats():
         "last_updated": current_date
     }
 
-    timestamp = new_results['last_updated'].strftime(("%Y-%m-%dT%H:%M:%SZ"))
+    timestamp = new_results['last_updated'].strftime(("%Y-%m-%dT%H:%M:%S"))
     parameters = {'timestamp': timestamp}
 
     # location part

@@ -43,7 +43,7 @@ paths:
           schema:
             type: string
             format: date-time
-            example: 2020-02-09T09:12:33.001Z
+            example: 2020-02-09T09:12:33.001
       responses:
         '200':
           description: Successfully returned a list of coffee location events
@@ -93,7 +93,7 @@ paths:
           schema:
             type: string
             format: date-time
-            example: 2020-02-09T09:12:33.001Z
+            example: 2020-02-09T09:12:33.001
       responses:
         '200':
           description: Successfully returned a list of coffee flavour events
@@ -139,14 +139,14 @@ components:
         timestamp:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001Z
+          example: 2016-08-29T09:12:33.001
         trace_id:
           type: string
           example: uuid4
         date_created:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001Z
+          example: 2016-08-29T09:12:33.001
     coffeeFlavour:
       required:
       - coffee_id
@@ -173,11 +173,11 @@ components:
         timestamp:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001Z
+          example: 2016-08-29T09:12:33.001
         trace_id:
           type: string
           example: uuid4
         date_created:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001Z
+          example: 2016-08-29T09:12:33.001
