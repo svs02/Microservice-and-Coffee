@@ -41,64 +41,130 @@ logger = logging.getLogger("service")
 
 
 def populate_stats():
-    """ Periodically update stats """
-    logger.info(f"Populate stats has started")
-    current_date = datetime.datetime.now()
     session = DB_SESSION()
-    if os.path.isfile('stats.sqlite'):
-        last_updated = session.query(Stats).order_by(Stats.last_updated.desc()).first()
-        if last_updated == None:
-            last_updated = {'num_location_phone_readings': 0, 'max_flavour_points_reading': 0, 'num_flavour_review_count_readings': 0, 'num_location_Countrycode_number_readings': 0, 'last_updated': '2020-02-16T16:18:47'}
-            stats_list = [last_updated]
-        else:
-            last_updated = last_updated.to_dict()
-            all_stats = session.query(Stats).order_by(Stats.last_updated.desc()).all()
-            stats_list = []
-            for stat in all_stats:
-                stats_list.append(stat.to_dict())
+    logger.info("Starting pop_stats")
+    results = session.query(Stats).order_by(Stats.id.desc()).first()
+    current_date = datetime.datetime.now()
+    if not results:
+        results = {
+            "id": 0,
+            "num_location_phone_readings": 0,
+            "max_flavour_points_reading": 0,
+            "num_flavour_review_count_readings": 0,
+            "num_location_Countrycode_number_readings": 0,
+            "last_updated": current_date
+        }
+
+    if not isinstance(results, dict):
+        results = results.to_dict()
+
+    new_results = {
+        "id": 0,
+        "num_location_phone_readings": 0,
+        "max_flavour_points_reading": 0,
+        "num_flavour_review_count_readings": 0,
+        "num_location_Countrycode_number_readings": 0,
+        "last_updated": current_date
+    }
+
+    timestamp = new_results['last_updated'].strftime(("%Y-%m-%dT%H:%M:%S"))
+    parameters = {'timestamp': timestamp}
+
+    # location part
+
+    get_location = f"{mysql_db_url}/coffee/location"
+    location_response = requests.get(get_location, params=parameters)
+
+    if location_response.status_code != 200:
+        logger.error("get_location is invalid request")
     else:
-        last_updated = {'num_location_phone_readings': 0, 'max_flavour_points_reading': 0, 'num_flavour_review_count_readings': 0, 'num_location_Countrycode_number_readings': 0, 'last_updated': '2020-02-16T16:18:47'}
+        location_response_data = location_response.json()
+        logger.info(
+            f"Total number of new location is: {len(location_response_data)}")
 
-    orders_data = requests.get(f"{app_config['eventstore']['url']}/coffee/flavour", params = {"timestamp": last_updated["last_updated"]})
-    deliveries_data = requests.get(f"{app_config['eventstore']['url']}/coffee/location", params = {"timestamp": last_updated["last_updated"]})
+        new_results['num_location_phone_readings'] = results['num_location_phone_readings'] + \
+            len(location_response_data)
+        new_results['num_location_Countrycode_number_readings'] = results['num_location_Countrycode_number_readings'] + \
+            len(location_response_data)
 
-    if orders_data.status_code and deliveries_data.status_code == 200:
-        logger.info(f"Data received! {len(orders_data.json())} orders received, {len(deliveries_data.json())} deliveries received")
-        for order in orders_data.json():
-            logger.debug(f"Order data: {order['traceID']} received")
-        for delivery in deliveries_data.json():
-            logger.debug(f"Delivery data: {delivery['traceID']} received")
+        li = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-        num_location_phone_readings = last_updated["num_location_phone_readings"] + len(orders_data.json()) # Calculate stats
+        max_phone_readings = new_results['num_location_phone_readings']
+        max_Countrycode_number_readings = new_results['num_location_Countrycode_number_readings']
+        for i in location_response_data:
+            try:
+                max_phone_readings = max(
+                    max_phone_readings, i['num_location_phone_readings'])
+            except KeyError:
+                print(f"\n\n{i}\n\n")
+            try:
+                max_Countrycode_number_readings = max(
+                    max_Countrycode_number_readings, i['num_location_Countrycode_number_readings'])
+            except KeyError:
+                print(f"\n\n{i}\n\n")
+            logger.debug(f"locaion event {i['trace_id']} processed")
 
-        max_flavour_points_reading = last_updated["max_flavour_points_reading"]  + len(deliveries_data.json())
+        max_phone_readings = max_phone_readings + random.choice(li)
+        max_Countrycode_number_readings = max_Countrycode_number_readings + \
+            random.choice(li)
 
-        num_flavour_review_count_readings = last_updated['num_flavour_review_count_readings']
-        for order in orders_data.json():
-            if order['Flavour_points'] > num_flavour_review_count_readings:
-                num_flavour_review_count_readings = order['Flavour_points']
+        new_results['num_location_phone_readings'] = max_phone_readings
+        new_results['num_location_Countrycode_number_readings'] = max_Countrycode_number_readings
 
-        num_location_Countrycode_number_readings = last_updated['num_location_Countrycode_number_readings']
-        for delivery in deliveries_data.json():
-            if delivery['location_Countrycode_number'] > num_location_Countrycode_number_readings:
-                num_location_Countrycode_number_readings = delivery['location_Countrycode_number']
+    # flavour part
 
+    get_flavour = f"{mysql_db_url}/coffee/flavour"
+    flavour_response = requests.get(get_flavour, params=parameters)
 
-
-
-        last_updated = current_date
-
-        stats = Stats(num_location_phone_readings, max_flavour_points_reading, num_flavour_review_count_readings, num_location_Countrycode_number_readings, current_date)
-        stats_dict = stats.to_dict()
-        print(stats_dict)
-
-        session.add(stats)
-        session.commit()
-        session.close()
-        logger.info("Finished processing data")
+    if flavour_response.status_code != 200:
+        logger.error("get_flavour is invalid request")
     else:
-        logger.error(f"Failed to receive data with error code: {orders_data.status_code} and {deliveries_data.status_code}")
-    
+        flavour_response_data = flavour_response.json()
+        logger.info(
+            f"Total number of new flavour is: {len(flavour_response_data)}")
+
+        new_results['max_flavour_points_reading'] = results['max_flavour_points_reading'] + len(
+            flavour_response_data)
+        new_results['num_flavour_review_count_readings'] = results['num_flavour_review_count_readings'] + len(
+            flavour_response_data)
+
+        li = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        max_flavour_points_reading = new_results['max_flavour_points_reading']
+        num_flavour_review_count_readings = new_results['num_flavour_review_count_readings']
+        for i in flavour_response_data:
+            try:
+                max_flavour_points_reading = max(
+                    max_flavour_points_reading, i['max_flavour_points_reading'])
+            except KeyError:
+                print(f"\n\n{i}\n\n")
+            try:
+                num_flavour_review_count_readings = max(num_flavour_review_count_readings,
+                                                        i['num_flavour_review_count_readings'])
+            except KeyError:
+                print(f"\n\n{i}\n\n")
+            logger.debug(f"flavour event {i['trace_id']} processed")
+
+        max_flavour_points_reading = max_flavour_points_reading + \
+            random.choice(li)
+        num_flavour_review_count_readings = num_flavour_review_count_readings + \
+            random.choice(li)
+        if max_flavour_points_reading > 500:
+            max_flavour_points_reading = 500
+
+        new_results['max_flavour_points_reading'] = max_flavour_points_reading
+        new_results['num_flavour_review_count_readings'] = num_flavour_review_count_readings
+
+    add_stats = Stats(new_results["num_location_phone_readings"], new_results["max_flavour_points_reading"],
+                      new_results["num_flavour_review_count_readings"], new_results["num_location_Countrycode_number_readings"], new_results["last_updated"])
+
+    session.add(add_stats)
+    session.commit()
+    session.close()
+
+    logger.debug(f"Processing data has been done. {new_results}")
+    logger.info(f"Periodic Processing Ends")
+
 
 def get_stats():
     """ Get stats event """
