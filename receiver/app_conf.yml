@@ -4,6 +4,8 @@ eventstore1:
 eventstore2:
   url: http://localhost:8090/coffee/location
 events:
-  hostname: kafka
+  hostname: kafka3855.westus3.cloudapp.azure.com
   port: 9092
   topic: events
+  retry: 100
+  sleep: 10
