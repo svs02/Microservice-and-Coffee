@@ -108,7 +108,7 @@ def get_coffeeLocation_readings(timestamp):
 
     session = DB_SESSION()
     timestamp_datetime = datetime.datetime.strptime(
-        timestamp, "%Y-%m-%dT%H:%M:%S")
+        timestamp, "%Y-%m-%dT%H:%M:%SZ")
     readings = session.query(CoffeeLocation).filter(
         CoffeeLocation.date_created >= timestamp_datetime)
     results_list = []
