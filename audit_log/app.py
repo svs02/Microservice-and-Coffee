@@ -22,17 +22,17 @@ logger = logging.getLogger("audit")
 with open('app_conf.yml', 'r') as f:
     app_config = yaml.safe_load(f.read())
 
-user = app_config.get("datastore")["user"]
-password = app_config.get("datastore")["password"]
-hostname = app_config.get("datastore")["hostname"]
-port = app_config.get("datastore")["port"]
-db = app_config.get("datastore")["db"]
+# user = app_config.get("datastore")["user"]
+# password = app_config.get("datastore")["password"]
+# hostname = app_config.get("datastore")["hostname"]
+# port = app_config.get("datastore")["port"]
+# db = app_config.get("datastore")["db"]
 
-DB_ENGINE = create_engine(
-    'mysql+pymysql://{}:{}@{}:{}/{}'.format(user, password, hostname, port, db))
+# DB_ENGINE = create_engine(
+#     'mysql+pymysql://{}:{}@{}:{}/{}'.format(user, password, hostname, port, db))
 
-Base.metadata.bind = DB_ENGINE
-DB_SESSION = sessionmaker(bind=DB_ENGINE)
+# Base.metadata.bind = DB_ENGINE
+# DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
 
 def get_coffeeLocation_readings(index):
@@ -89,10 +89,11 @@ def get_coffeeFlavour_readings(index):
     return {"message": "Not Found"}, 404
 
 
-app = connexion.FlaskApp(__name__, specification_dir='./')
-CORS(app.app)
+app = connexion.FlaskApp(__name__, specification_dir='')
+app.add_api('openapi.yaml', strict_validation=True, validate_responses=True)
+CORS(app.app) 
 app.app.config['CORS_HEADERS'] = 'Content-Type'
-app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
+
 
 if __name__ == "__main__":
     app.run(port=8110)

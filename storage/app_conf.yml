@@ -7,6 +7,6 @@ datastore:
  db: events
 
 events:
-  hostname: kafka3855.eastus.cloudapp.azure.com
+  hostname: kafka3855
   port: 9092
   topic: events
