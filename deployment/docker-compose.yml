@@ -58,14 +58,20 @@ services:
 
   storage:
     build: ../storage
-    image: storage
-    container_name: storage
+    environment:
+      - TARGET_ENV=test
+    volumes:
+      - /home/azureuser/config/storage:/config
+      - /home/azureuser/logs:/logs
+
     ports:
       - "8090:8090"
+    expose:
+      - 8090
     depends_on:
-      - db
-      - kafka
-    restart: always
+        - db
+        - kafka
+
 
   processing:
     build: ../processing
