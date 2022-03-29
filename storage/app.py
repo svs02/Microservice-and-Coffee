@@ -18,12 +18,17 @@ import json
 with open('app_conf.yml', 'r') as f:
     app_config = yaml.safe_load(f.read())
 
+with open('log_conf.yml', 'r') as f:
+    log_config = yaml.safe_load(f.read())
+    logging.config.dictConfig(log_config)
+
 user = app_config.get("datastore")["user"]
 password = app_config.get("datastore")["password"]
 hostname = app_config.get("datastore")["hostname"]
 port = app_config.get("datastore")["port"]
 db = app_config.get("datastore")["db"]
 
+logger = logging.getLogger("storage")
 
 """Switching DB Section"""
 DB_ENGINE = create_engine("sqlite:///readings.sqlite")
@@ -34,13 +39,6 @@ DB_ENGINE = create_engine(
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
-""" open log_conf.yml """
-
-with open('log_conf.yml', 'r') as f:
-    log_config = yaml.safe_load(f.read())
-    logging.config.dictConfig(log_config)
-
-logger = logging.getLogger("storage")
 
 
 def report_coffeeLocation_reading(body):
@@ -197,12 +195,12 @@ def process_messages():
         consumer.commit_offsets()
 
 
-app = connexion.FlaskApp(__name__, specification_dir='./')
+app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 
-
-if __name__ == "__main__":
+if __name__== "__main__":
     t1 = Thread(target=process_messages)
-    t1.daemon = True
+    logger.info(f"t1 = {t1}")
+    t1.setDaemon(True)
     t1.start()
     app.run(port=8090, debug=True)
