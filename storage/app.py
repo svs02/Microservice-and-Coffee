@@ -26,7 +26,7 @@ db = app_config.get("datastore")["db"]
 
 
 """Switching DB Section"""
-# DB_ENGINE = create_engine("sqlite:///readings.sqlite")
+DB_ENGINE = create_engine("sqlite:///readings.sqlite")
 
 DB_ENGINE = create_engine(
     'mysql+pymysql://{}:{}@{}:{}/{}'.format(user, password, hostname, port, db))
@@ -202,8 +202,7 @@ app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 
 
 if __name__ == "__main__":
-    print("start")
     t1 = Thread(target=process_messages)
-    t1.setDaemon(True)
+    t1.daemon = True
     t1.start()
     app.run(port=8090, debug=True)

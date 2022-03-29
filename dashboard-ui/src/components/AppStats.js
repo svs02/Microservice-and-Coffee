@@ -40,7 +40,7 @@ export default function AppStats() {
 						</tr>
 						<tr>
 							<td># L: {stats['num_location_phone_readings']}</td>
-							<td># F``: {stats['max_flavour_points_reading']}</td>
+							<td># F: {stats['max_flavour_points_reading']}</td>
 						</tr>
 						<tr>
 							<td colspan="2">Max Flavour review: {stats['num_flavour_review_count_readings']}</td>
@@ -50,6 +50,7 @@ export default function AppStats() {
 						</tr>
 					</tbody>
                 </table>
+                <h3>Last Updated: {stats['last_updated']}</h3>
 
 
             </div>
