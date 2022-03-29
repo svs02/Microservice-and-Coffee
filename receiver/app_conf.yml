@@ -1,9 +1,11 @@
 version: 1
 eventstore1:
-  url: http://localhost:9090/coffee/flavour
+  url: http://localhost:8090/coffee/flavour
 eventstore2:
-  url: http://localhost:9090/coffee/location
+  url: http://localhost:8090/coffee/location
 events:
   hostname: kafka3855.eastus.cloudapp.azure.com
   port: 9092
   topic: events
+  retry: 100
+  sleep: 10
