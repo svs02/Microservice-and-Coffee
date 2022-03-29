@@ -94,7 +94,7 @@ def report_coffeeFlavour_reading(body):
     # logger.info("Returned event {} response {} with status {}".format(
     #     event_name, trace_id, status_code))
 
-    return NoContent, 201
+    return producer, 201
 
 
 def report_coffeeLocation_reading(body):
@@ -126,7 +126,7 @@ def report_coffeeLocation_reading(body):
     msg_str = json.dumps(msg)
     producer.produce(msg_str.encode('utf-8'))
 
-    return NoContent, 201
+    return producer, 201
 
 
 app = connexion.FlaskApp(__name__, specification_dir='./')

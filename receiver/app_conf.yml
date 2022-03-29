@@ -4,8 +4,6 @@ eventstore1:
 eventstore2:
   url: http://localhost:8090/coffee/location
 events:
-  hostname: kafka3855.eastus.cloudapp.azure.com
+  hostname: kafka
   port: 9092
   topic: events
-  retry: 100
-  sleep: 10
