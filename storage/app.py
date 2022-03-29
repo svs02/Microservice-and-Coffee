@@ -14,6 +14,16 @@ from pykafka import KafkaClient
 from pykafka.common import OffsetType
 from threading import Thread
 import json
+import os
+
+if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
+    print("In Test Environment")
+    app_conf_file = "/config/app_conf.yml"
+    log_conf_file = "/config/log_conf.yml"
+else:
+    print("In Dev Environment")
+    app_conf_file = "app_conf.yml"
+    log_conf_file = "log_conf.yml"
 
 """ Read app_conf.yml """
 with open('app_conf.yml', 'r') as f:
@@ -23,20 +33,17 @@ with open('log_conf.yml', 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
 
-user = app_config.get("datastore")["user"]
-password = app_config.get("datastore")["password"]
-hostname = app_config.get("datastore")["hostname"]
-port = app_config.get("datastore")["port"]
-db = app_config.get("datastore")["db"]
+user = app_config['datastore']['user']
+password = app_config['datastore']['password']
+port = app_config['datastore']['port']
+hostname = app_config['datastore']['hostname']
+db = app_config['datastore']['db']
 
 logger = logging.getLogger("storage")
 
 """Switching DB Section"""
-DB_ENGINE = create_engine("sqlite:///readings.sqlite")
-
-DB_ENGINE = create_engine(
-    'mysql+pymysql://{}:{}@{}:{}/{}'.format(user, password, hostname, port, db))
-
+DB_ENGINE = create_engine(f'mysql+pymysql://{user}:{password}@{hostname}:{port}/{db}')
+logger.info(f"Connecting to DB. Hostname:{hostname}, Port:{port}")
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
@@ -195,13 +202,11 @@ def process_messages():
 
         consumer.commit_offsets()
 
-
 app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 
-if __name__== "__main__":
+if __name__ == "__main__":
     t1 = Thread(target=process_messages)
-    logger.info(f"t1 = {t1}")
-    t1.setDaemon(True)
+    t1.daemon = True
     t1.start()
     app.run(port=8090, debug=True)
