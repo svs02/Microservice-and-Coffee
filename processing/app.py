@@ -167,20 +167,17 @@ def populate_stats():
 
 
 def get_stats():
+    """ Get stats event """
+    logger.info("get_stats request has started")
     session = DB_SESSION()
-    logger.info("get_stats request")
-
-    stats = session.query(Stats).order_by(Stats.id.desc()).first()
-
-    if not stats:
-        logger.debug("Does not exist")
-        return "Stats does not exist", 404
-    stats = stats.to_dict()
+    last_updated = session.query(Stats).order_by(Stats.last_updated.desc()).first()
+    if last_updated == None:
+        logger.error("Statistics do not exist!")
+    data_dict = last_updated.to_dict()
+    logger.debug(f"Coverted to dictionary: {data_dict}")
+    logger.info("get_stats requests has completed!")
     session.close()
-
-    logger.debug(f"{stats}")
-    logger.info("complete")
-    return stats, 200
+    return data_dict, 200
 
 
 def init_scheduler():
