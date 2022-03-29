@@ -29,7 +29,7 @@ class Stats(Base):
         dict['max_flavour_points_reading'] = self.max_flavour_points_reading
         dict['num_flavour_review_count_readings'] = self.num_flavour_review_count_readings
         dict['num_location_Countrycode_number_readings'] = self.num_location_Countrycode_number_readings
-        dict['last_updated'] = self.last_updated.strftime("%Y-%m-%dT%H:%M:%S")
+        dict['last_updated'] = self.last_updated.strftime("%Y-%m-%dT%H:%M:%SZ")
 
         return dict
 
