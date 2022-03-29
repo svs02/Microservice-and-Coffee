@@ -101,7 +101,7 @@ def get_coffeeLocation_readings(timestamp):
 
     session = DB_SESSION()
     timestamp_datetime = datetime.datetime.strptime(
-        timestamp, "%Y-%m-%dT%H:%M:%SZ")
+        timestamp, "%Y-%m-%dT%H:%M:%S")
     readings = session.query(CoffeeLocation).filter(
         CoffeeLocation.date_created >= timestamp_datetime)
     results_list = []
@@ -122,7 +122,7 @@ def get_coffeeFlavour_readings(timestamp):
 
     session = DB_SESSION()
     timestamp_datetime = datetime.datetime.strptime(
-        timestamp, "%Y-%m-%dT%H:%M:%SZ")
+        timestamp, "%Y-%m-%dT%H:%M:%S")
     readings = session.query(CoffeeFlavour).filter(
         CoffeeFlavour.date_created >= timestamp_datetime)
     results_list = []
