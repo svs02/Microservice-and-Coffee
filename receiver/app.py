@@ -32,7 +32,8 @@ with open('log_conf.yml', 'r') as f:
     logging.config.dictConfig(log_config)
 
 logger = logging.getLogger("reciever")
-
+logger.info("App Conf File: %s" % app_conf_file) 
+logger.info("Log Conf File: %s" % log_conf_file)
 
 def writting_json(body):
 

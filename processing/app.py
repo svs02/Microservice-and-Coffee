@@ -31,13 +31,15 @@ with open('app_conf.yml', 'r') as f:
 with open('log_conf.yml', 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
+logger = logging.getLogger("service")
+logger.info("App Conf File: %s" % app_conf_file) 
+logger.info("Log Conf File: %s" % log_conf_file)
 
 DB_ENGINE = create_engine("sqlite:///stats.sqlite")
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
 mysql_db_url = app_config['eventstore']['url']
-logger = logging.getLogger("service")
 
 
 def populate_stats():

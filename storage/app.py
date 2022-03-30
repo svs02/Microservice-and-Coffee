@@ -34,13 +34,15 @@ with open('app_conf.yml', 'r') as f:
 with open('log_conf.yml', 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
+logger = logging.getLogger("storage")
+logger.info("App Conf File: %s" % app_conf_file) 
+logger.info("Log Conf File: %s" % log_conf_file)
 
 user = app_config['datastore']['user']
 password = app_config['datastore']['password']
 port = app_config['datastore']['port']
 hostname = app_config['datastore']['hostname']
 db = app_config['datastore']['db']
-logger = logging.getLogger("storage")
 
 # connect to kafka
 host_name = "%s:%d" % (app_config["events"]["hostname"], app_config["events"]["port"])
