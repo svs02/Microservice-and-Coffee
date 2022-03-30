@@ -49,6 +49,9 @@ DB_ENGINE = create_engine("sqlite:///stats.sqlite")
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
+
+
+
 mysql_db_url = app_config['eventstore']['url']
 
 
@@ -185,25 +188,25 @@ def populate_stats():
 
 
 def get_stats():
-    """ Get stats event """
-    logger.info("get_stats request has started")
+    """ Gets the temperature and fan speed events stats  """
     session = DB_SESSION()
-    last_updated = session.query(Stats).order_by(Stats.last_updated.desc()).first()
-    if last_updated == None:
-        logger.error("Statistics do not exist!")
-    data_dict = last_updated.to_dict()
-    logger.debug(f"Coverted to dictionary: {data_dict}")
-    logger.info("get_stats requests has completed!")
+    logger.info("Start Get Stats request")
+    stats = session.query(Stats).order_by(Stats.last_updated.desc()).first()
+    if not stats:
+        logger.debug(f'No latest statistics found')
+        return "Statistics do not exist", 404
+    stats = stats.to_dict()
     session.close()
-    return data_dict, 200
-
+    logger.debug(f'The latest statistics is {stats}')
+    logger.info("Get Stats request done")
+    return stats, 200
 
 def init_scheduler():
     sched = BackgroundScheduler(daemon=True)
-    sched.add_job(populate_stats,
-                  'interval',
-                  seconds=app_config['scheduler']['period_sec'])
+    sched.add_job(check_data, 'interval', seconds=app_config['scheduler']['period_sec'])
+    sched.add_job(populate_stats, 'interval', seconds=app_config['scheduler']['period_sec'])
     sched.start()
+
 
 
 app = connexion.FlaskApp(__name__, specification_dir='./')
