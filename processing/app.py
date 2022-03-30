@@ -67,13 +67,17 @@ def populate_stats():
         "last_updated": current_date
     }
 
-    timestamp = new_results['last_updated'].strftime(("%Y-%m-%dT%H:%M:%S"))
-    parameters = {'timestamp': timestamp}
+    start_timestamp = results['last_updated']
+    logger.debug(start_timestamp)
+    current_timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+    logger.debug(current_timestamp)
 
     # location part
 
-    get_location = f"{mysql_db_url}/coffee/location"
-    location_response = requests.get(get_location, params=parameters)
+    location_response = requests.get(app_config["eventstore"]["url"] +
+                                    "/coffee/location?start_timestamp=" +
+                                    f"{start_timestamp}" + "&end_timestamp=" +
+                                    f"{current_timestamp}")
 
     if location_response.status_code != 200:
         logger.error("get_location is invalid request")
@@ -113,8 +117,10 @@ def populate_stats():
 
     # flavour part
 
-    get_flavour = f"{mysql_db_url}/coffee/flavour"
-    flavour_response = requests.get(get_flavour, params=parameters)
+    flavour_response = requests.get(app_config["eventstore"]["url"] +
+                                    "/coffee/flavour?start_timestamp=" +
+                                    f"{start_timestamp}" + "&end_timestamp=" +
+                                    f"{current_timestamp}")
 
     if flavour_response.status_code != 200:
         logger.error("get_flavour is invalid request")

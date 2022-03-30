@@ -2,6 +2,7 @@ import connexion
 from connexion import NoContent
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import and_
 from base import Base
 from coffeeFlavour import CoffeeFlavour
 from coffeeLocation import CoffeeLocation
@@ -13,6 +14,7 @@ import datetime
 from pykafka import KafkaClient
 from pykafka.common import OffsetType
 from threading import Thread
+import time
 import json
 import os
 
@@ -38,8 +40,25 @@ password = app_config['datastore']['password']
 port = app_config['datastore']['port']
 hostname = app_config['datastore']['hostname']
 db = app_config['datastore']['db']
-
 logger = logging.getLogger("storage")
+
+# connect to kafka
+host_name = "%s:%d" % (app_config["events"]["hostname"], app_config["events"]["port"])
+max_retry = app_config["events"]["retry"]
+retry = 0
+while retry < max_retry:
+    logger.info(f"Try to connect Kafka Server, this is number {retry} try")
+    try:
+        client = KafkaClient(hosts=host_name)
+        topic = client.topics[str.encode(app_config["events"]["topic"])]
+        logger.info("Successfully connect to Kafka")
+        break
+    except:
+        logger.error(f"Failed to connect to Kafka, this is number {retry} try")
+        time.sleep(app_config["events"]["sleep"])
+        retry += 1
+        logger.info("retry in 10 second")
+
 
 """Switching DB Section"""
 DB_ENGINE = create_engine(f'mysql+pymysql://{user}:{password}@{hostname}:{port}/{db}')
@@ -103,14 +122,15 @@ def report_coffeeFlavour_reading(body):
     return NoContent, 201
 
 
-def get_coffeeLocation_readings(timestamp):
+def get_coffeeLocation_readings(start_timestamp, end_timestamp):
     """ Gets new coffee location readings after the timestamp """
 
     session = DB_SESSION()
-    timestamp_datetime = datetime.datetime.strptime(
-        timestamp, "%Y-%m-%dT%H:%M:%S")
+    start_timestamp_datetime = datetime.datetime.strptime(start_timestamp, "%Y-%m-%dT%H:%M:%S")
+    end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%dT%H:%M:%S")
     readings = session.query(CoffeeLocation).filter(
-        CoffeeLocation.date_created >= timestamp_datetime)
+            and_(CoffeeLocation.date_created >= start_timestamp_datetime,
+            CoffeeLocation.date_created < end_timestamp_datetime))
     results_list = []
 
     for reading in readings:
@@ -118,28 +138,29 @@ def get_coffeeLocation_readings(timestamp):
 
     session.close()
     logger.info("Query for coffee location readings after %s returns %d results" % (
-        timestamp, len(results_list)))
+        start_timestamp_datetime, len(results_list)))
 
     logger.info(f"Connecting to DB. Hostname:{hostname}, Port:{port}")
     return results_list, 200
 
 
-def get_coffeeFlavour_readings(timestamp):
+def get_coffeeFlavour_readings(start_timestamp, end_timestamp):
     """ Gets new coffee flavour readings after the timestamp """
 
     session = DB_SESSION()
-    timestamp_datetime = datetime.datetime.strptime(
-        timestamp, "%Y-%m-%dT%H:%M:%S")
+    start_timestamp_datetime = datetime.datetime.strptime(start_timestamp, "%Y-%m-%dT%H:%M:%S")
+    end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%dT%H:%M:%S")
     readings = session.query(CoffeeFlavour).filter(
-        CoffeeFlavour.date_created >= timestamp_datetime)
+            and_(CoffeeFlavour.date_created >= start_timestamp_datetime,
+            CoffeeFlavour.date_created < end_timestamp_datetime))
     results_list = []
 
     for reading in readings:
         results_list.append((reading.to_dict()))
-    print(results_list)
+
     session.close()
     logger.info("Query for coffee flavour readings after %s returns %d results" % (
-        timestamp, len(results_list)))
+        start_timestamp_datetime, len(results_list)))
 
     logger.info(f"Connecting to DB. Hostname:{hostname}, Port:{port}")
     return results_list, 200
