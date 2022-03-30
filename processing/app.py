@@ -25,15 +25,25 @@ else:
     print("In Dev Environment")
     app_conf_file = "app_conf.yml"
     log_conf_file = "log_conf.yml"
-
-with open('app_conf.yml', 'r') as f:
+with open(app_conf_file, 'r') as f:
     app_config = yaml.safe_load(f.read())
-with open('log_conf.yml', 'r') as f:
+# External Logging Configuration
+with open(log_conf_file, 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
-logger = logging.getLogger("service")
+logger = logging.getLogger('processing')
 logger.info("App Conf File: %s" % app_conf_file) 
 logger.info("Log Conf File: %s" % log_conf_file)
+
+def check_data():
+    file_exists = os.path.exists(f'{app_config["datastore"]["filename"]}')
+    if file_exists:
+        logger.info(f'log path is {app_config["datastore"]["filename"]}')
+        logger.info("data.sqlite is exist")
+    else:
+        logger.info("data.sqlite is not exist")
+        create_database()
+        logger.info("create data.sqlite")
 
 DB_ENGINE = create_engine("sqlite:///stats.sqlite")
 Base.metadata.bind = DB_ENGINE
