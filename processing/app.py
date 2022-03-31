@@ -47,7 +47,7 @@ Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
 def get_stats():
-    """ Gets the temperature and fan speed events stats  """
+    """ Gets the event1 and event2 stats  """
     session = DB_SESSION()
     logger.info("Start Get Stats request")
     stats = session.query(Stats).order_by(Stats.last_updated.desc()).first()
