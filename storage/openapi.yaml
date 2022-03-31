@@ -12,10 +12,10 @@ tags:
   - name: flavour
     description: Classification of coffee flavors.
 paths:
-  /coffee/location:
+  /coffee/flavour:
     get:
       tags:
-      - location
+      - flavour
       summary: request coffee name by location
       description: show a coffee beans by location to the user
       operationId: app.get_coffeeFlavour_readings
@@ -52,7 +52,7 @@ paths:
                   message:
                     type: string
 
-  /coffee/flavour:
+  /coffee/location:
     get:
       tags:
       - location
