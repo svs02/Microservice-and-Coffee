@@ -16,6 +16,7 @@ import datetime
 import random
 from pykafka import KafkaClient
 from flask_cors import CORS, cross_origin
+from create_database import create_database
 
 if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
     print("In Test Environment")
