@@ -60,7 +60,7 @@ def populate_stats():
     session = DB_SESSION()
     logger.info("Starting pop_stats")
     results = session.query(Stats).order_by(Stats.id.desc()).first()
-    current_date = datetime.datetime.now()
+    current_date = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
     if not results:
         results = {
             "id": 0,
