@@ -64,10 +64,9 @@ def get_stats():
 def populate_stats(dictionary=None):
     session = DB_SESSION()
     logger.info("Starting pop_stats")
-    stats = session.query(Stats).order_by(Stats.id.desc()).first()
+    stats = session.query(Stats).order_by(Stats.last_updated.desc()).first()
     if not stats:
         stats = {
-            "id": 0,
             "num_location_phone_readings": 0,
             "max_flavour_points_reading": 0,
             "num_flavour_review_count_readings": 0,
@@ -79,7 +78,6 @@ def populate_stats(dictionary=None):
         stats = stats.to_dict()
 
     new_stats = {
-        "id": 0,
         "num_location_phone_readings": 0,
         "max_flavour_points_reading": 0,
         "num_flavour_review_count_readings": 0,
