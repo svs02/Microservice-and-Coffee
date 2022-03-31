@@ -46,6 +46,21 @@ DB_ENGINE = create_engine("sqlite:///%s" % app_config["datastore"]["filename"])
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
+def get_stats():
+    """ Gets the temperature and fan speed events stats  """
+    session = DB_SESSION()
+    logger.info("Start Get Stats request")
+    stats = session.query(Stats).order_by(Stats.last_updated.desc()).first()
+    if not stats:
+        logger.debug(f'No latest statistics found')
+        return "Statistics do not exist", 404
+    stats = stats.to_dict()
+    session.close()
+    logger.debug(f'The latest statistics is {stats}')
+    logger.info("Get Stats request done")
+    return stats, 200
+
+
 def populate_stats(dictionary=None):
     session = DB_SESSION()
     logger.info("Starting pop_stats")
@@ -59,7 +74,7 @@ def populate_stats(dictionary=None):
             "num_location_Countrycode_number_readings": 0,
             "last_updated": datetime.datetime.now()
         }
-
+    logger.info(stats)
     if not isinstance(stats, dict):
         stats = stats.to_dict()
 
@@ -141,19 +156,6 @@ def populate_stats(dictionary=None):
     return
 
 
-def get_stats():
-    """ Gets the temperature and fan speed events stats  """
-    session = DB_SESSION()
-    logger.info("Start Get Stats request")
-    stats = session.query(Stats).order_by(Stats.last_updated.desc()).first()
-    if not stats:
-        logger.debug(f'No latest statistics found')
-        return "Statistics do not exist", 404
-    stats = stats.to_dict()
-    session.close()
-    logger.debug(f'The latest statistics is {stats}')
-    logger.info("Get Stats request done")
-    return stats, 200
 
 def init_scheduler():
     sched = BackgroundScheduler(daemon=True)
