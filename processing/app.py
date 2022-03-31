@@ -137,14 +137,11 @@ def populate_stats(dictionary=None):
         new_stats['num_flavour_review_count_readings'] = stats['num_flavour_review_count_readings'] + len(flavour_response_data)/2
 
         max_flavour_points_reading = new_stats['max_flavour_points_reading']
-        num_flavour_review_count_readings = new_stats['num_flavour_review_count_readings']
         for i in flavour_response_data:
             print(i)
             max_flavour_points_reading = max(max_flavour_points_reading, i['Flavour_points'])
-            num_flavour_review_count_readings = max(num_flavour_review_count_readings, i['Flavour_review_count'])
 
         new_stats['max_flavour_points_reading'] = max_flavour_points_reading
-        new_stats['num_flavour_review_count_readings'] = num_flavour_review_count_readings
 
     add_stats = Stats(new_stats["num_location_phone_readings"], new_stats["max_flavour_points_reading"],
                       new_stats["num_flavour_review_count_readings"], new_stats["num_location_Countrycode_number_readings"], new_stats["last_updated"])
