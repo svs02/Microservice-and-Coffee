@@ -18,7 +18,7 @@ paths:
       - location
       summary: request coffee name by location
       description: show a coffee beans by location to the user
-      operationId: app.report_coffeeLocation_reading
+      operationId: app.get_coffeeFlavour_readings
       parameters:
         - name: start_timestamp
           in: query
