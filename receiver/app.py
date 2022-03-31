@@ -82,7 +82,7 @@ def report_coffeeFlavour_reading(body):
     producer = topic.get_sync_producer()
     msg = {"type": "event1",
            "datetime":
-               datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+               datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
            "payload": body}
     msg_str = json.dumps(msg)
     producer.produce(msg_str.encode('utf-8'))
@@ -122,7 +122,7 @@ def report_coffeeLocation_reading(body):
     producer = topic.get_sync_producer()
     msg = {"type": "event2",
            "datetime":
-               datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+               datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
            "payload": body}
     msg_str = json.dumps(msg)
     producer.produce(msg_str.encode('utf-8'))
