@@ -7,7 +7,7 @@ info:
     email: tlee277@mybcit.ca
 
 paths:
-  /coffee/location:
+  /location:
     get:
       summary: get new coffee name by location from history
       description: show a coffee beans by location to the user
@@ -46,7 +46,7 @@ paths:
                 properties:
                   message:
                     type: string
-  /coffee/flavour:
+  /flavour:
     get:
       summary: get new coffee name by flavour from history
       description: show a coffee beans by flavour to the user
@@ -113,14 +113,14 @@ components:
         timestamp:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001
+          example: '2016-08-29T09:12:33.001Z'
         trace_id:
           type: string
           example: uuid4
         date_created:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001
+          example: '2016-08-29T09:12:33.001Z'
     coffeeFlavour:
       required:
       - coffee_id
@@ -147,11 +147,11 @@ components:
         timestamp:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001
+          example: '2016-08-29T09:12:33.001Z'
         trace_id:
           type: string
           example: uuid4
         date_created:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001
+          example: '2016-08-29T09:12:33.001Z'

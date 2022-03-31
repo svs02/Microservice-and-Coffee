@@ -36,10 +36,10 @@ components:
   schemas:
     stats:
       required:
-      - num_location_phone_readings
-      - max_flavour_points_reading
-      - num_flavour_review_count_readings
-      - num_location_Countrycode_number_readings
+        - num_location_phone_readings
+        - max_flavour_points_reading
+        - num_flavour_review_count_readings
+        - num_location_Countrycode_number_readings
       properties:
         num_location_phone_readings:
           type: integer

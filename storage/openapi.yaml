@@ -36,7 +36,7 @@ paths:
             example: 2016-08-29T09:12:33
 
       responses:
-        "201":
+        "200":
           description: item found
           content:
             application/json:

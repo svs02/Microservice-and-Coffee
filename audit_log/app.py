@@ -55,14 +55,14 @@ def get_coffeeLocation_readings(index):
     consumer = topic.get_simple_consumer(
         reset_offset_on_start=True, consumer_timeout_ms=1000)
     logger.info("Retrieving location at index %d" % index)
-    temp_list = []
+    location_list = []
     try:
         for msg in consumer:
             msg_str = msg.value.decode('utf-8')
             msg = json.loads(msg_str)
             if msg['type'] == 'temperature':
-                temp_list.append(msg['payload'])
-        return temp_list[index], 200
+                location_list.append(msg['payload'])
+        return location_list[index], 200
 
     except:
         logger.error("No more messages found")
@@ -81,14 +81,14 @@ def get_coffeeFlavour_readings(index):
     consumer = topic.get_simple_consumer(
         reset_offset_on_start=True, consumer_timeout_ms=1000)
     logger.info("Retrieving flavour at index %d" % index)
-    temp_list = []
+    flavour_list = []
     try:
         for msg in consumer:
             msg_str = msg.value.decode('utf-8')
             msg = json.loads(msg_str)
             if msg['type'] == 'temperature':
-                temp_list.append(msg['payload'])
-        return temp_list[index], 200
+                flavour_list.append(msg['payload'])
+        return flavour_list[index], 200
 
     except:
         logger.error("No more messages found")
