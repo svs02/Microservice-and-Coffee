@@ -48,8 +48,6 @@ paths:
                     type: string
   /coffee/flavour:
     get:
-      tags:
-      - flavour
       summary: get new coffee name by flavour from history
       description: show a coffee beans by flavour to the user
       operationId: app.get_coffeeFlavour_readings
@@ -115,14 +113,14 @@ components:
         timestamp:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001Z
+          example: 2016-08-29T09:12:33.001
         trace_id:
           type: string
           example: uuid4
         date_created:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001Z
+          example: 2016-08-29T09:12:33.001
     coffeeFlavour:
       required:
       - coffee_id
@@ -149,11 +147,11 @@ components:
         timestamp:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001Z
+          example: 2016-08-29T09:12:33.001
         trace_id:
           type: string
           example: uuid4
         date_created:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001Z
+          example: 2016-08-29T09:12:33.001

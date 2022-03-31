@@ -54,6 +54,8 @@ while retry < max_retry:
         client = KafkaClient(hosts=host_name)
         topic = client.topics[str.encode(app_config["events"]["topic"])]
         logger.info("Successfully connect to Kafka")
+        consumer = topic.get_simple_consumer(consumer_group=b'event_group', reset_offset_on_start=False,
+                                    auto_offset_reset=OffsetType.LATEST)
         break
     except:
         logger.error(f"Failed to connect to Kafka, this is number {retry} try")
@@ -187,12 +189,15 @@ def process_messages():
         msg = json.loads(msg_str)
 
         logger.info("Message: %s" % msg)
-
+        
+        
+        session = DB_SESSION()
         payload = msg["payload"]
+        data = {}
         if msg["type"] == 'event1':
-            session = DB_SESSION()
 
-            flavour = CoffeeFlavour(payload['coffee_id'],
+
+            data = CoffeeFlavour(payload['coffee_id'],
                                     payload['coffee_name'],
                                     payload['timestamp'],
                                     payload['Flavour_points'],
@@ -201,15 +206,10 @@ def process_messages():
                                     payload['date_create']
                                     )
 
-            session.add(flavour)
-
-            session.commit()
-            session.close()
 
         elif msg["type"] == 'event2':
-            session = DB_SESSION()
 
-            location = CoffeeLocation(payload['location_id'],
+            data = CoffeeLocation(payload['location_id'],
                                       payload['location_name'],
                                       payload['timestamp'],
                                       payload['location_phone_number'],
@@ -218,15 +218,13 @@ def process_messages():
                                       payload['date_create']
                                       )
 
-            session.add(location)
-
-            session.commit()
-            session.close()
-
+        session.add(data)
+        session.commit()
+        session.close()
         consumer.commit_offsets()
 
 app = connexion.FlaskApp(__name__, specification_dir='')
-app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
+app.add_api("openapi.yaml", base_path="/storage", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":
     t1 = Thread(target=process_messages)

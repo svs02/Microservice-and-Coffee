@@ -16,8 +16,8 @@ handlers:
 loggers:
   storage:
     level: DEBUG
-    handlers: [console, file]
+    handlers: [ console, file ]
     propagate: no
 root:
   level: DEBUG
-  handlers: [console]
+  handlers: [ console ]

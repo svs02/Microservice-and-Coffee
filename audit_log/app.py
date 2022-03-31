@@ -55,15 +55,14 @@ def get_coffeeLocation_readings(index):
     consumer = topic.get_simple_consumer(
         reset_offset_on_start=True, consumer_timeout_ms=1000)
     logger.info("Retrieving location at index %d" % index)
-    counter = 1
+    temp_list = []
     try:
         for msg in consumer:
             msg_str = msg.value.decode('utf-8')
             msg = json.loads(msg_str)
-            if msg['type'] == "event2":
-                counter += 1
-                if counter == index:
-                    return msg, 200
+            if msg['type'] == 'temperature':
+                temp_list.append(msg['payload'])
+        return temp_list[index], 200
 
     except:
         logger.error("No more messages found")
@@ -82,15 +81,14 @@ def get_coffeeFlavour_readings(index):
     consumer = topic.get_simple_consumer(
         reset_offset_on_start=True, consumer_timeout_ms=1000)
     logger.info("Retrieving flavour at index %d" % index)
-    counter = 1
+    temp_list = []
     try:
         for msg in consumer:
             msg_str = msg.value.decode('utf-8')
             msg = json.loads(msg_str)
-            if msg['type'] == "event1":
-                counter += 1
-                if counter == index:
-                    return msg, 200
+            if msg['type'] == 'temperature':
+                temp_list.append(msg['payload'])
+        return temp_list[index], 200
 
     except:
         logger.error("No more messages found")
@@ -100,9 +98,10 @@ def get_coffeeFlavour_readings(index):
 
 
 app = connexion.FlaskApp(__name__, specification_dir='')
-app.add_api('openapi.yaml', strict_validation=True, validate_responses=True)
-CORS(app.app) 
-app.app.config['CORS_HEADERS'] = 'Content-Type'
+if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":
+    CORS(app.app)
+    app.app.config['CORS_HEADERS'] = 'Content-Type'
+app.add_api("openapi.yaml", base_path="/audit_log", strict_validation=True, validate_responses=True)
 
 
 if __name__ == "__main__":
