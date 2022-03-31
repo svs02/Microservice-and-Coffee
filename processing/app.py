@@ -107,9 +107,12 @@ def populate_stats(dictionary=None):
         new_stats['num_location_phone_readings'] = stats['num_location_phone_readings'] + len(location_response_data)/2
         new_stats['num_location_Countrycode_number_readings'] = stats['num_location_Countrycode_number_readings'] + len(location_response_data)/2
 
+
+
         max_phone_readings = new_stats['num_location_phone_readings']
         max_Countrycode_number_readings = new_stats['num_location_Countrycode_number_readings']
         for i in location_response_data:
+            print(i)
             max_phone_readings = max(max_phone_readings, i['num_location_phone_readings'])
             max_Countrycode_number_readings = max(max_Countrycode_number_readings, i['num_location_Countrycode_number_readings'])
 
