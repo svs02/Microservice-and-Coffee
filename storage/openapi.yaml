@@ -13,23 +13,46 @@ tags:
     description: Classification of coffee flavors.
 paths:
   /coffee/location:
-    post:
+    get:
       tags:
       - location
       summary: request coffee name by location
       description: show a coffee beans by location to the user
       operationId: app.report_coffeeLocation_reading
-      requestBody:
-        description: Reading item to show
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/coffeeLocation'
+      parameters:
+        - name: start_timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33
+        - name: end_timestamp
+          in: query
+          description: Limits the end time of the query
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33
+
       responses:
         "201":
           description: item found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemperatureReading'
         "400":
           description: 'invalid input, object invalid'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /coffee/flavour:
     get:
       tags:
       - location
@@ -37,13 +60,20 @@ paths:
       description: show a coffee beans by location to the user
       operationId: app.get_coffeeLocation_readings
       parameters:
-        - name: timestamp
+        - name: start_timestamp
           in: query
           description: Limits the number of items on a page
           schema:
             type: string
             format: date-time
-            example: 2020-02-09T09:12:33.001
+            example: 2016-08-29T09:12:33
+        - name: end_timestamp
+          in: query
+          description: Limits the end time of the query
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33
       responses:
         '200':
           description: Successfully returned a list of coffee location events
@@ -62,55 +92,6 @@ paths:
                   message:
                     type: string
 
-  /coffee/flavour:
-    post:
-      tags:
-      - flavour
-      summary: request coffee name by flavour
-      description: show a coffee beans by flavour to the user
-      operationId: app.report_coffeeFlavour_reading
-      requestBody:
-        description: Reading item to show
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/coffeeFlavour'
-      responses:
-        "201":
-          description: item found
-        "400":
-          description: 'invalid input, object invalid'
-    get:
-      tags:
-      - flavour
-      summary: get new coffee name by flavour
-      description: show a coffee beans by flavour to the user
-      operationId: app.get_coffeeFlavour_readings
-      parameters:
-        - name: timestamp
-          in: query
-          description: Limits the number of items on a page
-          schema:
-            type: string
-            format: date-time
-            example: 2020-02-09T09:12:33.001
-      responses:
-        '200':
-          description: Successfully returned a list of coffee flavour events
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/coffeeFlavour'
-        '400':
-          description: Invaild request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
 components:
   schemas:
     coffeeLocation:
@@ -139,14 +120,15 @@ components:
         timestamp:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001
+          example: '2016-08-29T09:12:33.001Z'
         trace_id:
           type: string
           example: uuid4
         date_created:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001
+          example: '2016-08-29T09:12:33.001Z'
+
     coffeeFlavour:
       required:
       - coffee_id
@@ -173,11 +155,11 @@ components:
         timestamp:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001
+          example: '2016-08-29T09:12:33.001Z'
         trace_id:
           type: string
           example: uuid4
         date_created:
           type: string
           format: date-time
-          example: 2016-08-29T09:12:33.001
+          example: '2016-08-29T09:12:33.001Z'
