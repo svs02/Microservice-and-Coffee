@@ -172,6 +172,6 @@ if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":
 app.add_api('openapi.yaml', base_path="/processing", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":
-    check_data()
-    init_scheduler()
+    # check_data()
+    # init_scheduler()
     app.run(port=8100, use_reloader=False)
