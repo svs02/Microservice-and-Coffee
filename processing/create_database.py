@@ -15,6 +15,7 @@ def create_database():
               ''')
     conn.commit()
     conn.close()
+    print("database made")
 
 
 
