@@ -4,7 +4,6 @@ services:
   zookeeper:
     restart: always
     image: wurstmeister/zookeeper
-    container_name: zookeeper
     ports:
       - "2181"
     hostname: zookeeper
@@ -14,7 +13,6 @@ services:
   kafka:
     restart: always
     image: wurstmeister/kafka
-    container_name: kafka
     command: [ start-kafka.sh ]
     ports:
       - "9092:9092"
@@ -38,7 +36,6 @@ services:
   db:
     restart: always
     image: mysql:5.7
-    container_name: db
     environment:
       MYSQL_DATABASE: 'events'
       MYSQL_USER: 'user'
@@ -70,7 +67,6 @@ services:
     restart: always
     build: ../storage
     image: storage
-    container_name: storage
     environment:
       - TARGET_ENV=test
     volumes:
@@ -89,7 +85,6 @@ services:
     restart: always
     build: ../processing
     image: processing
-    container_name: processing
     environment:
       - TARGET_ENV=test
     volumes:
@@ -107,7 +102,6 @@ services:
     restart: always
     build: ../audit_log
     image: audit_log
-    container_name: audit_log
     environment:
       - TARGET_ENV=test
     volumes:
@@ -123,7 +117,6 @@ services:
   dashboard-ui:
     restart: always
     build: ../dashboard-ui
-    container_name: dashboard
     ports:
       - "3000"
     depends_on:
