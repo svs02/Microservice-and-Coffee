@@ -85,7 +85,7 @@ def populate_stats():
 
     start_timestamp = results['last_updated']
     logger.debug(start_timestamp)
-    current_timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+    current_timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
     logger.debug(current_timestamp)
 
     # location part
