@@ -85,7 +85,7 @@ def get_coffeeLocation_readings(start_timestamp, end_timestamp):
         results_list.append((reading.to_dict()))
 
     session.close()
-    logger.info("Query for coffee location readings after %s returns %d results" % (
+    logger.info("Query for coffee location readings after %s and %s returns %d results" % (
         start_timestamp, end_timestamp, len(results_list)))
 
     logger.info(f"Connecting to DB. Hostname:{hostname}, Port:{port}")
@@ -105,7 +105,7 @@ def get_coffeeFlavour_readings(start_timestamp, end_timestamp):
         results_list.append((reading.to_dict()))
 
     session.close()
-    logger.info("Query for coffee flavour readings after %s returns %d results" % (
+    logger.info("Query for coffee flavour readings after %s and %s returns %d results" % (
         start_timestamp, end_timestamp, len(results_list)))
 
     logger.info(f"Connecting to DB. Hostname:{hostname}, Port:{port}")
