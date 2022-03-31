@@ -120,7 +120,7 @@ services:
     depends_on:
       - kafka
 
-  dashboard:
+  dashboard-ui:
     restart: always
     build: ../dashboard-ui
     container_name: dashboard
