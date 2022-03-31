@@ -41,7 +41,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TemperatureReading'
+                $ref: '#/components/schemas/coffeeFlavour'
         "400":
           description: 'invalid input, object invalid'
           content:
