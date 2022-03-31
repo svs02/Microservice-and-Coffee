@@ -46,7 +46,7 @@ def check_data():
         create_database()
         logger.info("create data.sqlite")
 
-DB_ENGINE = create_engine("sqlite:///stats.sqlite")
+DB_ENGINE = create_engine("sqlite:///%s" % app_config["datastore"]["filename"])
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
