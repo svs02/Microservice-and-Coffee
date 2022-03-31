@@ -12,7 +12,7 @@ from stats import Stats
 import os
 import os.path
 from os import path
-from create_table import create_database
+from create_database import create_database
 
 if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
     print("In Test Environment")
