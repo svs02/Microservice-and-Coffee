@@ -102,31 +102,14 @@ def populate_stats():
         logger.info(
             f"Total number of new location is: {len(location_response_data)}")
 
-        new_results['num_location_phone_readings'] = results['num_location_phone_readings'] + \
-            len(location_response_data)
-        new_results['num_location_Countrycode_number_readings'] = results['num_location_Countrycode_number_readings'] + \
-            len(location_response_data)
-
-        li = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        new_results['num_location_phone_readings'] = results['num_location_phone_readings'] + len(location_response_data)/2
+        new_results['num_location_Countrycode_number_readings'] = results['num_location_Countrycode_number_readings'] + len(location_response_data)/2
 
         max_phone_readings = new_results['num_location_phone_readings']
         max_Countrycode_number_readings = new_results['num_location_Countrycode_number_readings']
         for i in location_response_data:
-            try:
-                max_phone_readings = max(
-                    max_phone_readings, i['num_location_phone_readings'])
-            except KeyError:
-                print(f"\n\n{i}\n\n")
-            try:
-                max_Countrycode_number_readings = max(
-                    max_Countrycode_number_readings, i['num_location_Countrycode_number_readings'])
-            except KeyError:
-                print(f"\n\n{i}\n\n")
-            logger.debug(f"locaion event {i['trace_id']} processed")
-
-        max_phone_readings = max_phone_readings + random.choice(li)
-        max_Countrycode_number_readings = max_Countrycode_number_readings + \
-            random.choice(li)
+            max_phone_readings = max(max_phone_readings, i['num_location_phone_readings'])
+            max_Countrycode_number_readings = max(max_Countrycode_number_readings, i['num_location_Countrycode_number_readings'])
 
         new_results['num_location_phone_readings'] = max_phone_readings
         new_results['num_location_Countrycode_number_readings'] = max_Countrycode_number_readings
@@ -145,34 +128,14 @@ def populate_stats():
         logger.info(
             f"Total number of new flavour is: {len(flavour_response_data)}")
 
-        new_results['max_flavour_points_reading'] = results['max_flavour_points_reading'] + len(
-            flavour_response_data)
-        new_results['num_flavour_review_count_readings'] = results['num_flavour_review_count_readings'] + len(
-            flavour_response_data)
-
-        li = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        new_results['max_flavour_points_reading'] = results['max_flavour_points_reading'] + len(flavour_response_data)/2
+        new_results['num_flavour_review_count_readings'] = results['num_flavour_review_count_readings'] + len(flavour_response_data)/2
 
         max_flavour_points_reading = new_results['max_flavour_points_reading']
         num_flavour_review_count_readings = new_results['num_flavour_review_count_readings']
         for i in flavour_response_data:
-            try:
-                max_flavour_points_reading = max(
-                    max_flavour_points_reading, i['max_flavour_points_reading'])
-            except KeyError:
-                print(f"\n\n{i}\n\n")
-            try:
-                num_flavour_review_count_readings = max(num_flavour_review_count_readings,
-                                                        i['num_flavour_review_count_readings'])
-            except KeyError:
-                print(f"\n\n{i}\n\n")
-            logger.debug(f"flavour event {i['trace_id']} processed")
-
-        max_flavour_points_reading = max_flavour_points_reading + \
-            random.choice(li)
-        num_flavour_review_count_readings = num_flavour_review_count_readings + \
-            random.choice(li)
-        if max_flavour_points_reading > 500:
-            max_flavour_points_reading = 500
+            max_flavour_points_reading = max(max_flavour_points_reading, i['max_flavour_points_reading'])
+            num_flavour_review_count_readings = max(num_flavour_review_count_readings, i['num_flavour_review_count_readings'])
 
         new_results['max_flavour_points_reading'] = max_flavour_points_reading
         new_results['num_flavour_review_count_readings'] = num_flavour_review_count_readings
