@@ -1,22 +1,18 @@
-import os
-
 import connexion
-import swagger_ui_bundle
+import logging.config
 import requests
-from connexion import NoContent
+import yaml
+import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from apscheduler.schedulers.background import BackgroundScheduler
+from flask_cors import CORS
 from base import Base
 from stats import Stats
-import yaml
-import logging.config
-import uuid
-import datetime
-import random
-from pykafka import KafkaClient
-from flask_cors import CORS, cross_origin
-from create_database import create_database
+import os
+import os.path
+from os import path
+from create_table import create_database
 
 if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
     print("In Test Environment")
