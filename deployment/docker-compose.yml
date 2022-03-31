@@ -54,8 +54,6 @@ services:
   receiver:
     restart: always
     build: ../receiver
-    image: receiver
-    container_name: receiver
     environment:
       - TARGET_ENV=test
     volumes:
