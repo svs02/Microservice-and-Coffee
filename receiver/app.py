@@ -69,7 +69,7 @@ def report_coffeeFlavour_reading(body):
 
     trace_id = uuid.uuid4()
     body['trace_id'] = f'{trace_id}'
-    body['date_create'] = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+    body['date_create'] = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
     payload = json.dumps(body)
     url = app_config["eventstore1"]["url"]
@@ -82,7 +82,7 @@ def report_coffeeFlavour_reading(body):
     producer = topic.get_sync_producer()
     msg = {"type": "event1",
            "datetime":
-               datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+               datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
            "payload": body}
     msg_str = json.dumps(msg)
     producer.produce(msg_str.encode('utf-8'))
@@ -101,7 +101,7 @@ def report_coffeeFlavour_reading(body):
 def report_coffeeLocation_reading(body):
     trace_id = uuid.uuid4()
     body['trace_id'] = f'{trace_id}'
-    body['date_create'] = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+    body['date_create'] = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
     payload = json.dumps(body)
     url = app_config["eventstore2"]["url"]
@@ -122,7 +122,7 @@ def report_coffeeLocation_reading(body):
     producer = topic.get_sync_producer()
     msg = {"type": "event2",
            "datetime":
-               datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+               datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
            "payload": body}
     msg_str = json.dumps(msg)
     producer.produce(msg_str.encode('utf-8'))
