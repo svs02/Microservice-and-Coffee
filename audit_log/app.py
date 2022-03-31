@@ -60,7 +60,7 @@ def get_coffeeLocation_readings(index):
         for msg in consumer:
             msg_str = msg.value.decode('utf-8')
             msg = json.loads(msg_str)
-            if msg['type'] == 'temperature':
+            if msg['type'] == 'event2':
                 location_list.append(msg['payload'])
         return location_list[index], 200
 
@@ -86,7 +86,7 @@ def get_coffeeFlavour_readings(index):
         for msg in consumer:
             msg_str = msg.value.decode('utf-8')
             msg = json.loads(msg_str)
-            if msg['type'] == 'temperature':
+            if msg['type'] == 'event1':
                 flavour_list.append(msg['payload'])
         return flavour_list[index], 200
 
