@@ -173,5 +173,5 @@ app.add_api('openapi.yaml', base_path="/processing", strict_validation=True, val
 
 if __name__ == "__main__":
     check_data()
-    # init_scheduler()
+    init_scheduler()
     app.run(port=8100, use_reloader=False)
