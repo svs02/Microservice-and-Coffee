@@ -72,69 +72,13 @@ DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
 
 
-def report_coffeeLocation_reading(body):
-    """ Receives a coffeeLocation reading """
-
-    session = DB_SESSION()
-
-    location = CoffeeLocation(body['location_id'],
-                              body['location_name'],
-                              body['timestamp'],
-                              body['location_phone_number'],
-                              body['location_Countrycode_number'],
-                              body['trace_id'],
-                              body['date_created']
-                              )
-
-    session.add(location)
-
-    session.commit()
-    session.close()
-
-    trace_id = body['trace_id']
-    event_name = "report_coffeeLocation_reading"
-    logger.debug("Stored event {} request with a trace id of {}".format(
-        event_name, trace_id))
-
-    return NoContent, 201
-
-
-def report_coffeeFlavour_reading(body):
-    """ Receives a coffeeFlavour reading """
-
-    session = DB_SESSION()
-
-    flavour = CoffeeFlavour(body['coffee_id'],
-                            body['coffee_name'],
-                            body['timestamp'],
-                            body['Flavour_points'],
-                            body['Flavour_review_count'],
-                            body['trace_id'],
-                            body['date_created']
-                            )
-
-    session.add(flavour)
-
-    session.commit()
-    session.close()
-
-    trace_id = uuid.uuid4()
-    event_name = "report_coffeeFlavour_reading"
-    logger.info("Stored event {} request with a trace id of {}".format(
-        event_name, trace_id))
-
-    return NoContent, 201
-
-
 def get_coffeeLocation_readings(start_timestamp, end_timestamp):
     """ Gets new coffee location readings after the timestamp """
 
     session = DB_SESSION()
-    start_timestamp_datetime = datetime.datetime.strptime(start_timestamp, "%Y-%m-%dT%H:%M:%SZ")
-    end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%dT%H:%M:%SZ")
     readings = session.query(CoffeeLocation).filter(
-            and_(CoffeeLocation.date_created >= start_timestamp_datetime,
-            CoffeeLocation.date_created < end_timestamp_datetime))
+            and_(CoffeeLocation.date_created >= start_timestamp,
+            CoffeeLocation.date_created < end_timestamp))
     results_list = []
 
     for reading in readings:
@@ -142,7 +86,7 @@ def get_coffeeLocation_readings(start_timestamp, end_timestamp):
 
     session.close()
     logger.info("Query for coffee location readings after %s returns %d results" % (
-        start_timestamp_datetime, len(results_list)))
+        start_timestamp, end_timestamp, len(results_list)))
 
     logger.info(f"Connecting to DB. Hostname:{hostname}, Port:{port}")
     return results_list, 200
@@ -152,11 +96,9 @@ def get_coffeeFlavour_readings(start_timestamp, end_timestamp):
     """ Gets new coffee flavour readings after the timestamp """
 
     session = DB_SESSION()
-    start_timestamp_datetime = datetime.datetime.strptime(start_timestamp, "%Y-%m-%dT%H:%M:%SZ")
-    end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%dT%H:%M:%SZ")
     readings = session.query(CoffeeFlavour).filter(
-            and_(CoffeeFlavour.date_created >= start_timestamp_datetime,
-            CoffeeFlavour.date_created < end_timestamp_datetime))
+            and_(CoffeeFlavour.date_created >= start_timestamp,
+            CoffeeFlavour.date_created < end_timestamp))
     results_list = []
 
     for reading in readings:
@@ -164,7 +106,7 @@ def get_coffeeFlavour_readings(start_timestamp, end_timestamp):
 
     session.close()
     logger.info("Query for coffee flavour readings after %s returns %d results" % (
-        start_timestamp_datetime, len(results_list)))
+        start_timestamp, end_timestamp, len(results_list)))
 
     logger.info(f"Connecting to DB. Hostname:{hostname}, Port:{port}")
     return results_list, 200
