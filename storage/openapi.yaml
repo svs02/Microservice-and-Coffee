@@ -112,10 +112,10 @@ components:
           type: string
           example: Columbia
         location_phone_number:
-          type: number
+          type: integer
           example: 6048329480
         location_Countrycode_number:
-          type: number
+          type: integer
           example: 1
         timestamp:
           type: string
@@ -147,10 +147,10 @@ components:
           type: string
           example: Arabica
         Flavour_points:
-          type: number
+          type: integer
           example: 10
         Flavour_review_count:
-          type: number
+          type: integer
           example: 150
         timestamp:
           type: string
