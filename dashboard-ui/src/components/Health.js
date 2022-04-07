@@ -38,10 +38,20 @@ export default function Health() {
 							<th>Health status</th>
 						</tr>
 						<tr>
-							<td>Receiver: {stats['receiver']}</td>
-                            <td>Receiver: {stats['storage']}</td>
-                            <td>Receiver: {stats['processing']}</td>
-                            <td>Receiver: {stats['audit_log']}</td>
+							<td>Receiver</td>
+							<td>{stats['receiver']}</td>
+						</tr>
+						<tr>
+							<td>storage</td>
+							<td>{stats['storage']}</td>
+						</tr>
+                        <tr>
+							<td>Receiver</td>
+							<td>{stats['processing']}</td>
+						</tr>
+                        <tr>
+							<td>Receiver</td>
+							<td>{stats['audit_log']}</td>
 						</tr>
 					</tbody>
                 </table>
