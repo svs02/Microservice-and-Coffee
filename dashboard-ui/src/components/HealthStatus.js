@@ -30,7 +30,7 @@ export default function HealthStatus() {
         return(
             <div>
                 <h1>Service Status</h1>
-                <table className={"StatusTable"}>
+                <table className="StatusTable">
                     <tbody>
 					    <thead>
                             <tr>
