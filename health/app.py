@@ -134,6 +134,5 @@ if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":
 app.add_api('openapi.yaml', base_path="/health", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":
-    check_data()
     init_scheduler()
     app.run(port=8120, use_reloader=False)

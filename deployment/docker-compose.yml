@@ -115,7 +115,7 @@ services:
       - kafka
 
   health:
-    build: ../health_check
+    build: ../health
     environment:
       - TARGET_ENV=test
     ports:
