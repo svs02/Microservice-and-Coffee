@@ -6,9 +6,9 @@ export default function Health() {
     const [stats, setStats] = useState({});
     const [error, setError] = useState(null)
 
-	const getStats = () => {
+	const getHealth = () => {
 	
-        fetch(`http://kafka3855.eastus.cloudapp.azure.com/health`)
+        fetch(`http://kafka3855.eastus.cloudapp.azure.com/health_check`)
             .then(res => res.json())
             .then((result)=>{
 				console.log("Received health")
@@ -20,9 +20,9 @@ export default function Health() {
             })
     }
     useEffect(() => {
-		const interval = setInterval(() => getStats(), 2000); // Update every 2 seconds
+		const interval = setInterval(() => getHealth(), 2000); // Update every 2 seconds
 		return() => clearInterval(interval);
-    }, [getStats]);
+    }, [getHealth]);
 
     if (error){
         return (<div className={"error"}>Error found when fetching from API</div>)
