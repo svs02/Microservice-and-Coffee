@@ -8,7 +8,7 @@ export default function Health() {
 
 	const getHealth = () => {
 	
-        fetch(`http://kafka3855.eastus.cloudapp.azure.com/health`)
+        fetch(`http://kafka3855.eastus.cloudapp.azure.com/`)
             .then(res => res.json())
             .then((result)=>{
 				console.log("Received health")
