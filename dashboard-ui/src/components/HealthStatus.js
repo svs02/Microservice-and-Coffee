@@ -30,6 +30,7 @@ export default function HealthStatus() {
         return(
             <div>
                 <h1>Service Status</h1>
+                <div className="HealthTable">
                 <table className="StatusTable">
                     <tbody>
 					    <thead>
@@ -56,6 +57,7 @@ export default function HealthStatus() {
 						</tr>
 					</tbody>
                 </table>
+                </div>
                 <h3>Last Updated: {stats['last_updated']}</h3>
             </div>
         )
