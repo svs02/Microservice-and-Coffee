@@ -8,7 +8,7 @@ export default function Health() {
 
 	const getHealth = () => {
 	
-        fetch(`http://kafka3855.eastus.cloudapp.azure.com/`)
+        fetch(`http://kafka3855.eastus.cloudapp.azure.com/health`)
             .then(res => res.json())
             .then((result)=>{
 				console.log("Received health")
@@ -34,21 +34,26 @@ export default function Health() {
                 <h1>Health status</h1>
                 <table className={"HealthTable"}>
 					<tbody>
-						<tr>
-							<td>Receiver: {stats['receiver']}</td>
+                    <tr>
+							<td>Receiver</td>
+							<td>{stats['receiver']}</td>
 						</tr>
 						<tr>
-							<td>storage: {stats['storage']}</td>
+							<td>storage</td>
+							<td>{stats['storage']}</td>
 						</tr>
                         <tr>
-							<td>processing: {stats['processing']}</td>
+							<td>Receiver</td>
+							<td>{stats['processing']}</td>
 						</tr>
                         <tr>
-							<td>audit_log: {stats['audit_log']}</td>
+							<td>Receiver</td>
+							<td>{stats['audit_log']}</td>
 						</tr>
 					</tbody>
                 </table>
-                <h3>Last Updated: {stats['last_updated']}</h3>
+                <h3>Last Updated: </h3>
+                <h3>{stats['last_updated']}</h3>
 
 
             </div>
