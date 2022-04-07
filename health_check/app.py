@@ -50,7 +50,7 @@ def get_health():
     """ Gets the health stats  """
     session = DB_SESSION()
     logger.info("Start Get health request")
-    health = session.query(health).order_by(health.last_updated.desc()).first()
+    health = session.query(Health).order_by(Health.last_updated.desc()).first()
 
     if not health:
         logger.debug(f'No latest statistics found')
