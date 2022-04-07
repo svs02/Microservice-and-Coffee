@@ -31,27 +31,20 @@ export default function Health() {
     } else if (isLoaded === true){
         return(
             <div>
-                <h1>Latest Stats</h1>
+                <h1>Health status</h1>
                 <table className={"HealthTable"}>
 					<tbody>
 						<tr>
-							<th>Health status</th>
+							<td>Receiver: {stats['receiver']}</td>
 						</tr>
 						<tr>
-							<td>Receiver</td>
-							<td>{stats['receiver']}</td>
-						</tr>
-						<tr>
-							<td>storage</td>
-							<td>{stats['storage']}</td>
+							<td>storage: {stats['storage']}</td>
 						</tr>
                         <tr>
-							<td>Receiver</td>
-							<td>{stats['processing']}</td>
+							<td>processing: {stats['processing']}</td>
 						</tr>
                         <tr>
-							<td>Receiver</td>
-							<td>{stats['audit_log']}</td>
+							<td>audit_log: {stats['audit_log']}</td>
 						</tr>
 					</tbody>
                 </table>
