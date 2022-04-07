@@ -47,21 +47,19 @@ Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
 def get_health():
-    """ Gets the health stats  """
+    """ Gets service health """
     session = DB_SESSION()
     logger.info("Start Get health request")
     health = session.query(Health).order_by(Health.last_updated.desc()).first()
-
     if not health:
         logger.debug(f'No latest statistics found')
         return "Statistics do not exist", 404
     health = health.to_dict()
-
     session.close()
     logger.debug(f'The latest statistics is {health}')
-    logger.info("Get health request done")
-
+    logger.info("Get Health request done")
     return health, 200
+
 
 
 def populate_health():
