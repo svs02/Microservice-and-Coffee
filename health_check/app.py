@@ -91,10 +91,6 @@ def populate_health():
         "last_updated": datetime.datetime.now()
     }
 
-    start_timestamp = health['last_updated']
-    logger.debug(start_timestamp)
-    current_timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
-    logger.debug(current_timestamp)
 
     for service in app_config["eventurl"]:
         maxtime = app_config["response"]['period_sec']
@@ -137,7 +133,7 @@ app = connexion.FlaskApp(__name__, specification_dir='')
 if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":
     CORS(app.app)
     app.app.config['CORS_HEADERS'] = 'Content-Type'
-app.add_api('openapi.yaml', base_path="/health", strict_validation=True, validate_responses=True)
+app.add_api('openapi.yaml', base_path="/health_check", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":
     check_data()
