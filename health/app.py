@@ -76,8 +76,6 @@ def populate_health():
             "last_updated": datetime.datetime.now()
         }
 
-    logger.info(health)
-
     if not isinstance(health, dict):
         health = health.to_dict()
 
@@ -116,7 +114,7 @@ def populate_health():
 
     logger.debug(f"health data has been done. {new_health}")
     logger.info(f"Periodic health Ends")
-    return
+
 
 
 
