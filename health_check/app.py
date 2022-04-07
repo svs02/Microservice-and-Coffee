@@ -28,7 +28,7 @@ with open(app_conf_file, 'r') as f:
 with open(log_conf_file, 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
-logger = logging.getLogger('processing')
+logger = logging.getLogger('health')
 logger.info("App Conf File: %s" % app_conf_file) 
 logger.info("Log Conf File: %s" % log_conf_file)
 
