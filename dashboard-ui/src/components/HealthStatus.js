@@ -34,7 +34,7 @@ export default function HealthStatus() {
                     <tbody>
 					    <thead>
                             <tr>
-                                <th>Service</th>s
+                                <th>Service</th>
                                 <th>Status</th>
                             </tr>
 						</thead>
