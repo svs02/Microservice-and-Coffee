@@ -114,6 +114,20 @@ services:
     depends_on:
       - kafka
 
+  health:
+    build: ../health
+    environment:
+      - TARGET_ENV=test
+    ports:
+      - "8120"
+    networks:
+      - "api.network"
+    volumes:
+      - /home/azureuser/config/health:/config
+      - /home/azureuser/logs:/logs
+      - health-db:/data
+
+
   dashboard-ui:
     restart: always
     build: ../dashboard-ui

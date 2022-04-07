@@ -1,0 +1,12 @@
+version: 1
+scheduler:
+  period_sec: 20
+datastore:
+  filename: /data/health.sqlite
+response:
+  period_sec: 5
+eventurl:
+  receiver: http://kafka3855.eastus.cloudapp.azure.com/receiver
+  storage: http://kafka3855.eastus.cloudapp.azure.com/storage
+  processing: http://kafka3855.eastus.cloudapp.azure.com/processing
+  audit_log: http://kafka3855.eastus.cloudapp.azure.com/audit_log

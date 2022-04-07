@@ -1,0 +1,60 @@
+---
+openapi: 3.0.0
+info:
+  title: Coffee name API
+  description: This is a Coffee info API that reading events from user inupt and return like coffee's id, name.
+  contact:
+    email: tlee277@mybcit.ca
+  version: 1.0.0
+
+
+paths:
+  /health:
+    get:
+      summary: get service health status
+      description: get service health status
+      operationId: app.get_health
+      responses:
+        '200':
+          description: Successfully returned service status
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/health'
+        '400':
+          description: service is down
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    health:
+      required:
+        - receiver
+        - storage
+        - processing
+        - audit_log
+        - last_updated
+      properties:
+        receiver:
+          type: string
+          example: running
+        storage:
+          type: string
+          example: running
+        processing:
+          type: string
+          example: running
+        audit_log:
+          type: string
+          example: running
+        last_updated:
+          type: string
+          example: '2020-04-07T01:02:12Z'
+      type: object
