@@ -9,7 +9,7 @@ info:
 
 
 paths:
-  /health:
+  /health_check:
     get:
       summary: get service health status
       description: get service health status
