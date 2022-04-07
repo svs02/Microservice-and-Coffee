@@ -161,6 +161,7 @@ services:
 volumes:
   my-db:
   processing-db:
+  health-db:
 
 networks:
   api.network:
