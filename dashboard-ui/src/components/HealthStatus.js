@@ -6,7 +6,7 @@ export default function HealthStatus() {
     const [stats, setStats] = useState({});
     const [error, setError] = useState(null)
 	const getHealth = () => {
-        fetch(`http://kafka.eastus.cloudapp.azure.com/health/status`)
+        fetch(`http://kafka3855.eastus.cloudapp.azure.com/health/status`)
             .then(res => res.json())
             .then((result)=>{
 				console.log("Received Health")

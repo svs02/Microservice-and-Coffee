@@ -2,8 +2,6 @@ import logo from './logo.png';
 import './App.css';
 import React from 'react'
 import HealthStatus from './components/HealthStatus'
-import ReactDOM from 'react-dom'
-
 import EndpointAudit from './components/EndpointAudit'
 import AppStats from './components/AppStats'
 
