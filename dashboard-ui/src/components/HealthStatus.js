@@ -1,29 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState} from 'react'
 import '../App.css';
 
-export default function Health() {
+export default function HealthStatus() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [stats, setStats] = useState({});
     const [error, setError] = useState(null)
-
 	const getHealth = () => {
-	
-        fetch(`http://kafka3855.eastus.cloudapp.azure.com/health`)
+        fetch(`http://kafka.eastus.cloudapp.azure.com/health`)
             .then(res => res.json())
             .then((result)=>{
-				console.log("Received health")
+				console.log("Received Health")
                 setStats(result);
                 setIsLoaded(true);
             },(error) =>{
                 setError(error)
                 setIsLoaded(true);
             })
-    }
+    };
+
     useEffect(() => {
 		const interval = setInterval(() => getHealth(), 2000); // Update every 2 seconds
 		return() => clearInterval(interval);
     }, [getHealth]);
-
     if (error){
         return (<div className={"error"}>Error found when fetching from API</div>)
     } else if (isLoaded === false){
@@ -31,10 +29,16 @@ export default function Health() {
     } else if (isLoaded === true){
         return(
             <div>
-                <h1>Health status</h1>
-                <table className={"HealthTable"}>
-					<tbody>
-                    <tr>
+                <h1>Service Status</h1>
+                <table className={"StatusTable"}>
+                    <tbody>
+					    <thead>
+                            <tr>
+                                <th>Service</th>s
+                                <th>Status</th>
+                            </tr>
+						</thead>
+						<tr>
 							<td>Receiver</td>
 							<td>{stats['receiver']}</td>
 						</tr>
@@ -52,10 +56,7 @@ export default function Health() {
 						</tr>
 					</tbody>
                 </table>
-                <h3>Last Updated: </h3>
-                <h3>{stats['last_updated']}</h3>
-
-
+                <h3>Last Updated: {stats['last_updated']}</h3>
             </div>
         )
     }

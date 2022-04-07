@@ -1,7 +1,7 @@
 import logo from './logo.png';
 import './App.css';
 import React from 'react'
-import Health from './components/Health'
+import HealthStatus from './components/HealthStatus'
 import ReactDOM from 'react-dom'
 
 import EndpointAudit from './components/EndpointAudit'
@@ -20,7 +20,7 @@ function App() {
             <img src={logo} className="App-logo" alt="logo" height="150px" width="400px"/>
             <div>
                 <AppStats/>
-                <Health/>
+                <HealthStatus/>
                 <h1>Audit Endpoints</h1>
                 {rendered_endpoints}
             </div>
